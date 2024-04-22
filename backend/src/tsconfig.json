@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "module": "es2020",
+    "target": "es2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "moduleResolution": "classic",
+    "outDir": "dist"
+  },
+  "include": ["*.ts"],
+  "exclude": ["node_modules"]
+}
