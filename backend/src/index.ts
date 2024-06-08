@@ -1,3 +1,4 @@
+import "./config/Config";
 import { AppDataSource } from "./db";
 import { registerControllers } from "./routes";
 
@@ -10,4 +11,3 @@ AppDataSource.initialize()
   .catch((error) => console.log(error));
 
 registerControllers();
-// export const DB = AppDataSource.createEntityManager();
