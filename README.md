@@ -4,9 +4,9 @@
 
 # Quick start
 
-запуск проекта:
+Запуск проекта:
 - backend: [http://localhost:3000](http://localhost:3000)
-- frontend:
+- frontend: [http://localhost:3001](http://localhost:3001)
 
 
 ```
