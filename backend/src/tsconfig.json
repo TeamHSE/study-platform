@@ -5,10 +5,11 @@
     "target": "es2022",
     "strict": true,
     "esModuleInterop": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "skipLibCheck": true,
     "moduleResolution": "classic",
-    "outDir": "dist"
+    "outDir": "../dist",
+    "noEmit": false
   },
   "include": ["*.ts"],
   "exclude": ["node_modules"]

@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc -p src/",
     "start": "npx tsx src/index.ts",
     "dev": "nodemon ./src/index.ts localhost 3000",
     "lint": "eslint",
