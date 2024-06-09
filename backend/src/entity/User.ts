@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import bcrypt from "bcryptjs";
 
 @Entity("users")
 export class User {
@@ -38,51 +45,12 @@ export class User {
   @Column({ type: "text", nullable: true })
   healthIssues: string;
 
-  // @BeforeInsert()
-  // @BeforeUpdate()
-  // async hashPassword() {
-  //   if (this.password) {
-  //     const salt = await bcrypt.genSalt();
-  //     this.password = await bcrypt.hash(this.password, salt);
-  //   }
-  // }
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    if (this.password) {
+      const salt = await bcrypt.genSalt();
+      this.password = await bcrypt.hash(this.password, salt);
+    }
+  }
 }
-
-// async function createUser() {
-//     const userRepository = getRepository(UserEntity);
-//     const newUser = userRepository.create({
-//         firstName: "Jane",
-//         lastName: "Doe",
-//         username: "janedoe",
-//         email: "jane.doe@example.com",
-//         password: "securepassword123", // This will be hashed before saving
-//         isMale: false,
-//         birthDate: new Date(1992, 2, 1)
-//     });
-//
-//     await userRepository.save(newUser);
-//     console.log("UserEntity has been saved with hashed password:", newUser);
-// }
-//
-// async function findUser() {
-//     const userRepository = getRepository(UserEntity);
-//     const user = await userRepository.findOne({where: {username: "johndoe"}});
-//     if (user) {
-//         console.log("UserEntity found:", user);
-//     } else {
-//         console.log("UserEntity not found");
-//     }
-// }
-//
-// async function verifyUserPassword(username: string, password: string) {
-//   const userRepository = getRepository(User);
-//   const user = await userRepository.findOne({ where: { username } });
-//
-//   if (user && (await bcrypt.compare(password, <string>user.password))) {
-//     console.log("Password is correct!");
-//     return true;
-//   } else {
-//     console.log("Password is incorrect.");
-//     return false;
-//   }
-// }
