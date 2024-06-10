@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "courses",
+  "synchronize": true,
+  "logging": true,
+  "entities": [
+    "src/models/*.ts"
+  ]
+}
