@@ -1,11 +1,4 @@
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import bcrypt from "bcryptjs";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { UUID } from "crypto";
 
 @Entity("users")
@@ -45,13 +38,4 @@ export class User {
 
   @Column({ type: "text", nullable: true })
   healthIssues: string;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async hashPassword() {
-    if (this.password) {
-      const salt = await bcrypt.genSalt();
-      this.password = await bcrypt.hash(this.password, salt);
-    }
-  }
 }
