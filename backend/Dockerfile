@@ -1,5 +1,4 @@
-ARG NODE_VERSION=18.20.2
-ARG PNPM_VERSION=9.0.2
+ARG NODE_VERSION=20.14.0
 
 FROM node:${NODE_VERSION}-alpine
 
@@ -8,9 +7,6 @@ FROM node:${NODE_VERSION}-alpine
 
 # Install pnpm.
 RUN npm install -g npm@latest
-
-RUN --mount=type=cache,target=/root/.npm \
-    npm install -g pnpm@${PNPM_VERSION}
 
 WORKDIR /usr/src/app
 

@@ -1,11 +1,43 @@
-name: study-platform
+
 services:
   backend:
-    container_name: backend-api
     build:
       context: ./backend
+    #      target: final
+    container_name: backend-box
     ports:
       - 3000:3000
+    environment:
+      DB_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend-network
+      - application-network
+
+  postgres:
+    image: "postgres:14.8-alpine3.18"
+    user: postgres
+    container_name: postgres-box
+    expose:
+      - "5432"
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "courses"
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend-network
+
   frontend:
     container_name: frontend-ui
     build:
@@ -14,4 +46,14 @@ services:
       NODE_ENV: production
     ports:
       - 3001:3001
+    networks:
+      - application-network
 
+networks:
+  backend-network:
+    driver: bridge
+  application-network:
+    driver: bridge
+
+volumes:
+  db:

@@ -133,3 +133,4 @@ dist
 ./backend/node_modules/
 .idea/
 ./backend/*.js
+./backend/dist/*
