@@ -1,36 +1,22 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { callLogin } from "@/app/auth/api-service";
 
 export default function Login() {
   const [ login, setLogin ] = useState<string>("");
   const [ password, setPassword ] = useState<string>("");
   const [ error, setError ] = useState<string>("");
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
+  const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    try {
-      const response = await axios.post("/api/auth/login", { login, password });
-      if (response.status === 200) {
-        router.push(redirect);
-      }
-    } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 400) {
-          setError("Invalid login or password");
-        } else {
-          setError("An error occurred");
-        }
-      } else {
-        setError("An unknown error occurred");
-      }
-    }
+    await callLogin(login, password, redirect, router, setError);
   };
 
   return (
