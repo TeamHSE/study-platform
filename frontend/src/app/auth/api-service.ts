@@ -1,16 +1,17 @@
-import axios from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import http from "@/http-client";
+import { isAxiosError } from "axios";
 
 const unknownErrorMsg = "Возникла непредвиденная ошибка, мы уже работаем над этим";
 
 export const callRegister = async (login: string, password: string, router: AppRouterInstance, setErrorCallbackFn: (msg: string) => void) => {
   try {
-    const response = await axios.post("/api/auth/register", { login, password }, { timeout: 5000 });
+    const response = await http.post("/auth/register", { login, password });
     if (response.status === 200) {
       router.replace("/auth/login");
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
       if (error.code === "ECONNABORTED") {
         setErrorCallbackFn("Время ожидания истекло, попробуйте еще раз");
         return;
@@ -32,12 +33,12 @@ export const callRegister = async (login: string, password: string, router: AppR
 
 export const callLogin = async (login: string, password: string, redirect: string, router: AppRouterInstance, setErrorCallbackFn: (msg: string) => void) => {
   try {
-    const response = await axios.post("/api/auth/login", { login, password }, { timeout: 5000 });
+    const response = await http.post("/auth/login", { login, password });
     if (response.status === 200) {
       router.replace(redirect);
     }
   } catch (error: any) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
       if (error.code === "ECONNABORTED") {
         setErrorCallbackFn("Время ожидания истекло, попробуйте еще раз");
         return;
