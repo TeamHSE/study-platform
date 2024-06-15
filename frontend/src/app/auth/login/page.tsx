@@ -8,7 +8,7 @@ import { callLogin } from "@/app/auth/api-service";
 
 export default function Login() {
   return (
-    <Suspense fallback={ <div>Loading...</div> }>
+    <Suspense fallback={ <div>Загрузка...</div> }>
       <LoginForm />
     </Suspense>
   );
@@ -29,26 +29,26 @@ function LoginForm() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Вход</h1>
       <form onSubmit={ handleSubmit }>
         <input
           type="text"
           value={ login }
           onChange={ (e) => setLogin(e.target.value) }
-          placeholder="Login"
+          placeholder="Логин (почта)"
           required
         />
         <input
           type="password"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }
-          placeholder="Password"
+          placeholder="Пароль"
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">Войти</button>
       </form>
 
-      <Link href={ "/auth/register" }>Need account</Link>
+      <Link href={ "/auth/register" }>Зарегистрироваться</Link>
       { error && <p>{ error }</p> }
     </div>
   );

@@ -17,12 +17,12 @@ export default function Register() {
     event.preventDefault();
 
     if (!isValidEmail(login)) {
-      setError("Invalid email address");
+      setError("Некорректный адрес почты");
       return;
     }
 
     if (!matchPasswords(password, confirmPassword)) {
-      setError("Passwords do not match");
+      setError("Пароли не совпадают");
       return;
     }
 
@@ -31,34 +31,34 @@ export default function Register() {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Регистрация</h1>
       <form onSubmit={ handleSubmit }>
         <input
           type="text"
           value={ login }
           onChange={ (e) => setLogin(e.target.value) }
-          placeholder="Login"
+          placeholder="Логин (почта)"
           required
         />
         <input
           type="password"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }
-          placeholder="Password"
+          placeholder="Пароль"
           required
         />
         <input
           type="password"
           value={ confirmPassword }
           onChange={ (e) => setConfirmPassword(e.target.value) }
-          placeholder="Confirm Password"
+          placeholder="Повторите пароль"
           required
         />
-        <button type="submit">Register</button>
+        <button type="submit">Зарегистрироваться</button>
       </form>
       { error && <p>{ error }</p> }
 
-      <Link href={ "/auth/login" }>Already have an account</Link>
+      <Link href={ "/auth/login" }>Войти в существующий</Link>
     </div>
   );
 }
