@@ -1,17 +1,25 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { callLogin } from "@/app/auth/api-service";
 
 export default function Login() {
+  return (
+    <Suspense fallback={ <div>Loading...</div> }>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const [ login, setLogin ] = useState<string>("");
   const [ password, setPassword ] = useState<string>("");
   const [ error, setError ] = useState<string>("");
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/";
+  const redirect = searchParams.get("redirect") || "/courses";
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
