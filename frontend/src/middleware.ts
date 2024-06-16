@@ -15,5 +15,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [ "/profile" ] // todo добавить реальные пути для авторизованного доступа
+  matcher: [ "/logout" ] // todo добавить реальные пути для авторизованного доступа
 };
