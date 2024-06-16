@@ -1,12 +1,13 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { UUID } from "crypto";
 
 @Entity("courses_modules")
 export class CoursesModule extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "integer" })
-  moduleId: number | undefined;
+  @PrimaryGeneratedColumn()
+  moduleId: UUID | undefined;
 
   @Column({ type: "integer" })
-  courseId: number | undefined;
+  courseId: UUID | undefined;
 
   @Column({ type: "varchar", length: 250 })
   name: string | undefined;
