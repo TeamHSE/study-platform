@@ -1,6 +1,8 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import http from "@/http-client";
 import { isAxiosError } from "axios";
+import { IUserId } from "@/app/auth/models";
+import { setCookie } from "cookies-next";
 
 const unknownErrorMsg = "Возникла непредвиденная ошибка, мы уже работаем над этим";
 
@@ -33,8 +35,15 @@ export const callRegister = async (login: string, password: string, router: AppR
 
 export const callLogin = async (login: string, password: string, redirect: string, router: AppRouterInstance, setErrorCallbackFn: (msg: string) => void) => {
   try {
-    const response = await http.post("/auth/login", { login, password });
+    const response = await http.post<IUserId>("/auth/login", { login, password });
     if (response.status === 200) {
+      setCookie("userId", {
+        name: "userId",
+        value: response.data.userId,
+        maxAge: 60 * 6 * 24,
+        httpOnly: true,
+        secure: true
+      });
       router.replace(redirect);
     }
   } catch (error: any) {
