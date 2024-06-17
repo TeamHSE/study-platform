@@ -1,6 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-import { DASHBOARD_PAGE } from "@/constants/pages-url.constants";
 
 const AuthorsSection = () => {
   return (
