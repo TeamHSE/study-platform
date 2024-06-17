@@ -9,16 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.45.0",
+    "@tanstack/react-query-devtools": "^5.45.0",
+    "@types/js-cookie": "^3.0.6",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "cookie": "^0.6.0",
-    "cookies-next": "^4.2.1",
+    "js-cookie": "^3.0.5",
     "next": "14.2.3",
     "react": "^18",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18",
-    "reactstrap": "^9.2.2"
+    "reactstrap": "^9.2.2",
+    "sonner": "^1.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",

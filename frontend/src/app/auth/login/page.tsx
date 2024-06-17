@@ -4,7 +4,8 @@ import { useState, FormEvent, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { callLogin } from "@/app/auth/api-service";
+import { COURSES_PAGE, REGISTER_PAGE } from "@/constants/pages-url.constants";
+import { authService } from "@/services/auth.service";
 
 export default function Login() {
   return (
@@ -19,12 +20,12 @@ function LoginForm() {
   const [ password, setPassword ] = useState<string>("");
   const [ error, setError ] = useState<string>("");
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/courses";
+  const redirect = searchParams.get("redirect") || COURSES_PAGE;
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    await callLogin(login, password, redirect, router, setError);
+    await authService.login(login, password, redirect, router, setError);
   };
 
   return (
@@ -48,7 +49,7 @@ function LoginForm() {
         <button type="submit">Войти</button>
       </form>
 
-      <Link href={ "/auth/register" }>Зарегистрироваться</Link>
+      <Link href={ REGISTER_PAGE }>Зарегистрироваться</Link>
       { error && <p>{ error }</p> }
     </div>
   );

@@ -2,9 +2,10 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { callRegister } from "../api-service";
 import { isValidEmail, matchPasswords } from "../utils";
 import Link from "next/link";
+import { LOGIN_PAGE } from "@/constants/pages-url.constants";
+import { authService } from "@/services/auth.service";
 
 export default function Register() {
   const [ login, setLogin ] = useState<string>("");
@@ -26,7 +27,7 @@ export default function Register() {
       return;
     }
 
-    await callRegister(login, password, router, setError);
+    await authService.register(login, password, router, setError);
   };
 
   return (
@@ -58,7 +59,7 @@ export default function Register() {
       </form>
       { error && <p>{ error }</p> }
 
-      <Link href={ "/auth/login" }>Войти в существующий</Link>
+      <Link href={ LOGIN_PAGE }>Войти в существующий</Link>
     </div>
   );
 }
