@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { EnumTokens } from "./services/auth-token.service";
 import { AUTH_BASE } from "./constants/pages-url.constants";
 
-export async function middleware(request: NextRequest, response: NextResponse) {
+export async function middleware(request: NextRequest) {
   const { url, cookies } = request;
   let loginRedirect = request.nextUrl.clone();
   loginRedirect.pathname = "/auth/login";
@@ -28,5 +28,5 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 }
 
 export const config = {
-   // matcher: [ "/auth/logout", "/profile", "/board", "/courses" ] todo: uncomment when back ready
+   matcher: [ "/auth/logout", "/profile", "/board", "/courses" ]
 };
