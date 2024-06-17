@@ -1,14 +1,12 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-
 @Entity("courses_steps")
 export class CoursesStep extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  stepId: "uuid" | undefined;
+  @PrimaryGeneratedColumn({ type: "integer" })
+  stepId: number | undefined;
 
-  @Column({ type: "uuid" })
-  moduleId: "uuid" | undefined;
+  @Column({ type: "integer" })
+  moduleId: number | undefined;
 
   @Column({ type: "varchar", length: 250 })
   name: string | undefined;
