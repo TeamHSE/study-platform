@@ -3,6 +3,13 @@ export interface IAuthForm {
   password: string;
 }
 
+export interface IRegisterForm extends IAuthForm {
+  confirmPassword: string;
+  username: string,
+  lastName: string,
+  firstName: string
+}
+
 export interface IUser extends IUserId {
   firstName: string;
   lastName: string;
@@ -24,8 +31,7 @@ export interface IUserId {
 export const getFullName = (user: IUser) => user.firstName + " " + user.lastName;
 
 export interface IAuthResponse {
-  accessToken: string;
-  user: IUser;
+  token: string;
 }
 
 export type TypeUserForm = Omit<IUser, "id" | "role"> & { password?: string }

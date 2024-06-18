@@ -1,6 +1,17 @@
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
+import { WELCOME_PAGE } from "@/constants/pages-url.constants";
+import { authService } from "@/services/auth.service";
 
 const Profile = () => {
+  const router = useRouter();
+  const logout = async () => {
+    await authService.logout();
+    router.push(WELCOME_PAGE);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -16,7 +27,7 @@ const Profile = () => {
           </ul>
           <div className="d-flex">
             <button className="btn btn-primary">Редактировать профиль</button>
-            <button className="btn btn-danger">Выйти из аккаунта</button>
+            <button onClick={ logout } className="btn btn-danger">Выйти из аккаунта</button>
           </div>
         </div>
       </div>
