@@ -1,65 +1,71 @@
-import { IAuthResponse } from "@/types/auth.types";
-
+import { IAuthForm, IAuthResponse } from "@/types/auth.types";
 import { removeFromStorage, saveTokenStorage } from "./auth-token.service";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { http, httpUnauthorized } from "@/http-client";
 import { isAxiosError } from "axios";
-import { LOGIN_PAGE } from "@/constants/pages-url.constants";
 
 const unknownErrorMsg = "Возникла непредвиденная ошибка, мы уже работаем над этим";
 
 export const authService = {
-  async register(login: string, password: string, router: AppRouterInstance, setErrorCallbackFn: (msg: string) => void) {
+  async register(form: IAuthForm): Promise<string | null> {
     try {
-      const response = await http.post("/auth/register", { login, password });
-      if (response.status === 200) {
-        router.replace(LOGIN_PAGE);
-      }
+      await httpUnauthorized.post("/auth/register",
+        {
+          "login": form.email,
+          "password": form.password
+        });
+
+      return null;
     } catch (error) {
-      if (isAxiosError(error)) {
-        if (error.code === "ECONNABORTED") {
-          setErrorCallbackFn("Время ожидания истекло, попробуйте еще раз");
-          return;
-        }
-        if (error.response?.status === 409) {
-          setErrorCallbackFn("Логин уже занят");
-        } else if (error.response?.status === 400) {
-          setErrorCallbackFn("Пароль слишком прост");
-        } else if (error.response?.status === 422) {
-          setErrorCallbackFn("Ошибки валидации");
-        } else {
-          setErrorCallbackFn(unknownErrorMsg);
-        }
-      } else {
-        setErrorCallbackFn(unknownErrorMsg);
+      if (!isAxiosError(error)) {
+        return unknownErrorMsg;
       }
+      if (error.code === "ECONNABORTED") {
+        return "Время ожидания истекло, попробуйте еще раз";
+      }
+      if (error.response?.status === 409) {
+        return "Логин уже занят";
+      }
+      if (error.response?.status === 400) {
+        return "Пароль слишком прост";
+      }
+      if (error.response?.status === 422) {
+        return "Ошибки валидации";
+      }
+
+      return unknownErrorMsg;
     }
   },
 
-  async login(login: string, password: string, redirect: string, router: AppRouterInstance, setErrorCallbackFn: (msg: string) => void) {
+  async login(form: IAuthForm): Promise<string | null> {
     try {
-      const response = await http.post<IAuthResponse>("/auth/login", { login, password });
+      const response = await httpUnauthorized.post<IAuthResponse>(
+        "/auth/login",
+        {
+          "login": form.email,
+          "password": form.password
+        });
       if (response.status === 200) {
         if (response.data.accessToken) {
           saveTokenStorage(response.data.accessToken);
         }
-        router.replace(redirect);
       }
     } catch (error: any) {
-      if (isAxiosError(error)) {
-        if (error.code === "ECONNABORTED") {
-          setErrorCallbackFn("Время ожидания истекло, попробуйте еще раз");
-          return;
-        }
-        if (error.response?.status === 400) {
-          setErrorCallbackFn("Некорректный логин или пароль");
-        } else {
-          setErrorCallbackFn(unknownErrorMsg);
-        }
-      } else {
-        setErrorCallbackFn(unknownErrorMsg);
+      if (!isAxiosError(error)) {
+        return unknownErrorMsg;
       }
+
+      if (error.code === "ECONNABORTED") {
+        return "Время ожидания истекло, попробуйте еще раз";
+      }
+
+      if (error.response?.status === 400) {
+        return "Некорректный логин или пароль";
+      }
+
+      return unknownErrorMsg;
     }
+
+    return null;
   },
 
   async getNewTokens() {
@@ -75,7 +81,7 @@ export const authService = {
   },
 
   async logout() {
-    const response = await httpUnauthorized.post<boolean>("/auth/logout");
+    const response = await http.post<boolean>("/auth/logout");
 
     if (response.data) {
       removeFromStorage();
