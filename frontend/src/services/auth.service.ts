@@ -1,24 +1,28 @@
-import { IAuthForm, IAuthResponse } from "@/types/auth.types";
+import { IAuthForm, IAuthResponse, IRegisterForm } from "@/types/auth.types";
 import { removeFromStorage, saveTokenStorage } from "./auth-token.service";
 import { http, httpUnauthorized } from "@/http-client";
-import { isAxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 
 const unknownErrorMsg = "Возникла непредвиденная ошибка, мы уже работаем над этим";
 
 export const authService = {
-  async register(form: IAuthForm): Promise<string | null> {
+  async register(form: IRegisterForm): Promise<string | null> {
     try {
       await httpUnauthorized.post("/auth/register",
         {
           "login": form.email,
-          "password": form.password
+          "username": form.username,
+          "password": form.password,
+          "lastName": form.lastName,
+          "firstName": form.lastName
         });
 
       return null;
-    } catch (error: any) {
-      if (!isAxiosError(error)) {
+    } catch (err: any) {
+      if (!isAxiosError(err)) {
         return unknownErrorMsg;
       }
+      let error = (<AxiosError> err);
       if (error.code === "ECONNABORTED") {
         return "Время ожидания истекло, попробуйте еще раз";
       }
@@ -29,7 +33,7 @@ export const authService = {
         return "Пароль слишком прост";
       }
       if (error.response?.status === 422) {
-        return "Ошибки валидации";
+        return "Ошибки валидации\n" + error.response.data;
       }
 
       return unknownErrorMsg;
