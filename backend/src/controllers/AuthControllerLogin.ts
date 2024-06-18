@@ -39,7 +39,7 @@ export const AuthControllerLogin = [
       });
 
       res.cookie("token", token, {
-        httpOnly: true,
+        httpOnly: false,
       });
 
       return res.status(200).json({ message: "Вход выполнен успешно" });

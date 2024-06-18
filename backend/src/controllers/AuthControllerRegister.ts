@@ -59,7 +59,7 @@ export const AuthControllerRegister = [
       });
 
       res.cookie("token", token, {
-        httpOnly: true,
+        httpOnly: false,
       });
 
       return res.status(200).json({ message: "Пользователь успешно зарегистрирован" });
