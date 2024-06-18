@@ -15,7 +15,7 @@ export const authService = {
         });
 
       return null;
-    } catch (error) {
+    } catch (error: any) {
       if (!isAxiosError(error)) {
         return unknownErrorMsg;
       }

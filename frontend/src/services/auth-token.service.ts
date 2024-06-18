@@ -1,8 +1,7 @@
 import Cookies from "js-cookie";
 
 export enum EnumTokens {
-  "ACCESS_TOKEN" = "accessToken",
-  "REFRESH_TOKEN" = "refreshToken"
+  "ACCESS_TOKEN" = "token"
 }
 
 export const getAccessToken = () => {
