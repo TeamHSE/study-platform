@@ -4,6 +4,7 @@ import { app } from "./server";
 import { UserController } from "./controllers/UserController";
 import { AuthControllerLogin } from "./controllers/AuthControllerLogin";
 import { AuthControllerRegister } from "./controllers/AuthControllerRegister";
+import {UserControllerGetUserInfo} from "./controllers/UserInfoController"
 
 export const registerControllers = () => {
   app.get("/helloWorld", HelloWorldController);
@@ -12,4 +13,5 @@ export const registerControllers = () => {
   app.post("/api/auth/login", AuthControllerLogin);
   app.get("/user", UserController);
   app.post("/user", UserController);
+  app.get("/api/users",UserControllerGetUserInfo)
 };
