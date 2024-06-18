@@ -1,5 +1,11 @@
-export const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-export const generalRegex = /^[a-zA-Z0-9._%+-@$*#]+$/;
+// - Local part: allows alphanumeric characters, dots, hyphens, and underscores.
+// - Domain part: allows alphanumeric characters and hyphens.
+// - TLD part: allows alphabetical characters only and must be between 2 to 4 characters.
+export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+// Allows alphanumeric characters, dots, underscores, percentage signs, plus signs, hyphens, at signs, dollar signs, asterisks, and hash signs.
+export const generalRegex = /^[a-zA-Z0-9._%+\-@$*#]+$/;
+
 
 export const lettersRegex = /^[A-Za-zА-Яа-я]+$/;
 
