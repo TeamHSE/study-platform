@@ -1,7 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-
 @Entity("courses_modules")
 export class CoursesModule extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")

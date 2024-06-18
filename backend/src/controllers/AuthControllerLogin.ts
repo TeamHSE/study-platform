@@ -1,4 +1,3 @@
-import fs from 'fs';
 import { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import { AppDataSource } from "../db";
@@ -26,13 +25,13 @@ export const AuthControllerLogin = [
       return res.status(400).json({ message: "Неверный логин или пароль" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Неверный логин или пароль" });
     }
 
     try {
-      const privateKey = config.readPrivateKey('path/to/private.pem'); // Update with the actual path
+      const privateKey = config.readPrivateKey(); 
 
       const token = jwt.sign({ login: user.email }, privateKey, {
         expiresIn: "1h",

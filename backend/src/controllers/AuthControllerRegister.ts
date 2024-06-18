@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { userValidationRules } from "../middlewares/validation";
 import { config } from "../config/Config";
-import * as fs from 'fs';
 
 export const AuthControllerRegister = [
   ...userValidationRules(),
