@@ -1,16 +1,31 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from "typeorm";
+import { CoursesModule } from "./CoursesModules";
+import { CoursesStep } from "./CoursesStep";
+import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("courses")
-export class Course extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "integer" })
-  courseId: number | undefined;
+export class Course {
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ unique: true, type: "varchar", length: 250 })
-  name: string | undefined;
+  name: string;
 
   @Column("text")
-  description: string | undefined;
+  description: string;
 
   @Column({ default: false, type: "boolean" })
-  isVisible: boolean | undefined;
+  isVisible: boolean;
+
+  @OneToMany(() => CoursesModule, (module) => module.course)
+  modules: CoursesModule[];
+
+  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user)
+  viewers: CoursesViewer;
 }

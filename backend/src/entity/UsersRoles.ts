@@ -1,4 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "./User";
+import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("users_roles")
 export class UsersRole extends BaseEntity {
@@ -7,4 +15,7 @@ export class UsersRole extends BaseEntity {
 
   @Column({ unique: true, type: "varchar", length: 50 })
   name: string | undefined;
+
+  @ManyToOne(() => CoursesViewer, (viewer) => viewer.roles)
+  viewer: CoursesViewer;
 }
