@@ -3,6 +3,10 @@ export interface IAuthForm {
   password: string;
 }
 
+export interface IRegisterForm extends IAuthForm {
+  confirmPassword: string;
+}
+
 export interface IUser extends IUserId {
   firstName: string;
   lastName: string;
