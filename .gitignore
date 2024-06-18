@@ -134,3 +134,7 @@ dist
 .idea/
 ./backend/*.js
 ./backend/dist/*
+
+# rm extra package at rood dir
+./package.json
+./*-lock.y*ml
