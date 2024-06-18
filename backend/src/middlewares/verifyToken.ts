@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import { config } from "../config/Config";
-import { DecodedToken } from "../types/express"; // Импортируем интерфейс DecodedToken из определенного файла
+import { DecodedToken } from "../types/express";
 
 const publicKeyPath = config.publicKeyPath;
 
