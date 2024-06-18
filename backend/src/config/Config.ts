@@ -5,11 +5,13 @@ class Config {
   dbHost: string;
   privateKeyPath: string;
   publicKeyPath: string;
+  frontendURL: string; 
 
-  constructor(privateKeyPath: string, publicKeyPath: string) {
+  constructor(privateKeyPath: string, publicKeyPath: string, frontendURL: string) {
     this.dbHost = process.env.DB_HOST || '';
     this.privateKeyPath = privateKeyPath;
     this.publicKeyPath = publicKeyPath;
+    this.frontendURL = frontendURL;
   }
 
   readPrivateKey(): string {
@@ -35,7 +37,12 @@ class Config {
 const privateKeyPath = path.resolve('src/private.pem');
 const publicKeyPath = path.resolve('src/public.pem');
 
+
+const frontendURL = "http://localhost:3001";
+
+
 export const config = new Config(
   privateKeyPath,
-  publicKeyPath
+  publicKeyPath,
+  frontendURL
 );
