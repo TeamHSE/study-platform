@@ -76,7 +76,7 @@ const Profile = () => {
   };
 
   return (
-    isLoading ? (
+    isLoading || !user ? (
       <Loader />
     ) : (
       <Container>
