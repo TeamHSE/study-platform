@@ -2,7 +2,7 @@ import { IUser } from "@/types/auth.types";
 import { http } from "@/http-client";
 
 export const userService = {
-  async getUser() {
+  async getUser(): Promise<IUser> {
     const response = await http.get<IUser>(`/users/`);
     return response.data;
   },
