@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { useProfile } from "@/hooks/useProfile";
+import { LuLoader } from "react-icons/lu";
 
 const courses = [
   {
@@ -17,12 +21,13 @@ const courses = [
 ];
 
 const Courses: React.FC = () => {
+  const { user } = useProfile();
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Курсы</h1>
         <div>
-          <span className="text-white">User Name</span>
+          <span className="text-dark">{ user?.username ?? <LuLoader /> }</span>
         </div>
       </div>
       <div className="row">

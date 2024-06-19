@@ -13,6 +13,7 @@ import { MdDelete } from "react-icons/md";
 import { AddCourseModal } from "@/components/cabinet/AddCourseModal";
 import { EditUserModal } from "@/components/cabinet/EditUserModal";
 import { userService } from "@/services/user.service";
+import Loader from "@/components/Loader";
 
 const Profile = () => {
   const { user, isLoading } = useProfile();
@@ -75,7 +76,7 @@ const Profile = () => {
 
   return (
     isLoading ? (
-      <p>Загрузка...</p>
+      <Loader />
     ) : (
       <Container>
         <Row className="my-3 justify-content-center">
