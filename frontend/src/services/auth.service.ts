@@ -73,7 +73,16 @@ export const authService = {
   },
 
   async logout() {
-    const response = await http.post<boolean>("/auth/logout");
+    const response = await http.post("/auth/logout");
+
+    if (response.data) {
+      removeFromStorage();
+    }
+
+    return response;
+  },
+  async delete() {
+    const response = await http.delete("/users");
 
     if (response.data) {
       removeFromStorage();
