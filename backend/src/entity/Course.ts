@@ -1,4 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from "typeorm";
+import { CoursesModule } from "./CoursesModules";
+import { CoursesStep } from "./CoursesStep";
+import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("courses")
 export class Course extends BaseEntity {
@@ -6,11 +16,17 @@ export class Course extends BaseEntity {
   courseId: "uuid" | undefined;
 
   @Column({ unique: true, type: "varchar", length: 250 })
-  name: string | undefined;
+  name: string;
 
   @Column("text")
-  description: string | undefined;
+  description: string;
 
   @Column({ default: false, type: "boolean" })
-  isVisible: boolean | undefined;
+  isVisible: boolean;
+
+  @OneToMany(() => CoursesModule, (module) => module.course)
+  modules: CoursesModule[];
+
+  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user)
+  viewers: CoursesViewer;
 }

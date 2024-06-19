@@ -1,4 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { UUID } from "crypto";
+import { UsersActivity } from "./UsersActivity";
+import { UsersRole } from "./UsersRoles";
+import { Course } from "./Course";
+import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("users")
 export class User {
@@ -37,4 +48,10 @@ export class User {
 
   @Column({ type: "text", nullable: true })
   healthIssues: string;
+
+  @OneToMany(() => UsersActivity, (activity) => activity.user)
+  activities: UsersActivity[];
+
+  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user)
+  viewers: CoursesViewer;
 }
