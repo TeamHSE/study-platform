@@ -57,6 +57,12 @@ http.interceptors.response.use(
       return;
     }
 
+    if (process.env.NODE_ENV == "production") {
+      toast.error("Произошла ошибка, обратитесь к разработчикам",
+        { duration: 10000, closeButton: true, important: true });
+      return;
+    }
+
     throw error;
   }
 );
