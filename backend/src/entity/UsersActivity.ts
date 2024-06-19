@@ -10,14 +10,14 @@ import { CoursesStep } from "./CoursesStep";
 
 @Entity("users_activity")
 export class UsersActivity extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "integer" })
-  activityId: number | undefined;
+  @PrimaryGeneratedColumn("uuid")
+  activityId: string | undefined;
 
-  @Column({ type: "integer" })
-  userId: number | undefined;
+  @Column({ type: "uuid" })
+  userId: string | undefined;
 
-  @Column({ type: "integer" })
-  stepId: number | undefined;
+  @Column({ type: "uuid" })
+  stepId: string | undefined;
 
   @Column({ type: "timestamp with time zone" })
   timestamp: Date | undefined;

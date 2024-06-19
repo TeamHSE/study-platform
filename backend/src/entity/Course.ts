@@ -10,9 +10,9 @@ import { CoursesStep } from "./CoursesStep";
 import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("courses")
-export class Course {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Course extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
+  courseId: "uuid" | undefined;
 
   @Column({ unique: true, type: "varchar", length: 250 })
   name: string;
