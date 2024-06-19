@@ -16,11 +16,11 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.local/share/pnpm/store \
     npm i --frozen-lockfile --force
 
-# Generate RSA keys
-RUN mkdir src  \
-    && openssl genpkey -algorithm RSA -out src/private.pem -pkeyopt rsa_keygen_bits:2048 \
-    && openssl rsa -pubout -in src/private.pem -out src/public.pem \
-    && chmod 644 src/private.pem src/public.pem
+# Generate RSA keys in src/config
+RUN mkdir -p src/config \
+    && openssl genpkey -algorithm RSA -out src/config/private.pem -pkeyopt rsa_keygen_bits:2048 \
+    && openssl rsa -pubout -in src/config/private.pem -out src/config/public.pem \
+    && chmod 644 src/config/private.pem src/config/public.pem
 
 # Run the application as a non-root user.
 USER node

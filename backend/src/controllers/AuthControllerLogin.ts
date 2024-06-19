@@ -25,17 +25,17 @@ export const AuthControllerLogin = [
       return res.status(400).json({ message: "Неверный логин или пароль" });
     }
 
-    const isPasswordValid = bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Неверный логин или пароль" });
     }
 
     try {
-      const privateKey = config.readPrivateKey(); 
+      const privateKey = config.readPrivateKey();
 
       const token = jwt.sign({ login: user.email }, privateKey, {
         expiresIn: "1h",
-        algorithm: 'RS256'
+        algorithm: "RS256",
       });
 
       res.cookie("token", token, {
@@ -45,7 +45,9 @@ export const AuthControllerLogin = [
       return res.status(200).json({ message: "Вход выполнен успешно" });
     } catch (err) {
       console.error("Ошибка чтения приватного ключа:", err);
-      return res.status(500).json({ message: "Произошла ошибка при входе пользователя" });
+      return res
+        .status(500)
+        .json({ message: "Произошла ошибка при входе пользователя" });
     }
   },
 ];
