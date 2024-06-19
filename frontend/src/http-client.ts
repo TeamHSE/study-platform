@@ -48,9 +48,17 @@ http.interceptors.response.use(
 
     if (error?.response?.status === 422) {
       if (error.response.data.errors) {
-        const validationErrors = error.response.data.errors.map((e: any) => e.msg);
-        toast.error(`Ошибки валидации:\n${ validationErrors.join("\n") }`,
-          { duration: 10000, closeButton: true, important: true });
+        const validationErrors = error.response.data.errors.map((e: any) => "- " + e.msg);
+        toast.error("Ошибки валидации!",
+          {
+            duration: 10000,
+            closeButton: true,
+            important: true,
+            description: validationErrors.join("\n"),
+            style: {
+              whiteSpace: "pre-line"
+            }
+          });
       } else {
         toast.error("Ошибки валидации");
       }
