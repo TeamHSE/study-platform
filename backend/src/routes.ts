@@ -7,6 +7,7 @@ import { AuthControllerRegister } from "./controllers/AuthControllerRegister";
 import { UserControllerGetUserInfo } from "./controllers/UserInfoController";
 import { UserControllerLogout } from "./controllers/AuthControllerLogout";
 import { UserControllerDeleteUser } from "./controllers/UserDeleteAccountController";
+import { UserControllerUpdate } from "./controllers/UserUpdateController";
 
 export const registerControllers = () => {
   app.get("/helloWorld", HelloWorldController);
@@ -17,5 +18,6 @@ export const registerControllers = () => {
   app.post("/user", UserController);
   app.get("/api/users", UserControllerGetUserInfo);
   app.post("/api/auth/logout", UserControllerLogout);
-  app.delete("/api/users",UserControllerDeleteUser)
+  app.delete("/api/users",UserControllerDeleteUser);
+  app.put("/api/users",UserControllerUpdate);
 };
