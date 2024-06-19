@@ -20,7 +20,7 @@ export const userValidationRules = () => {
 
 export const userValidationDescription = () => {
   return [
-    check("login").isEmail().withMessage("Неверный формат почты!"),
+    check("email").isEmail().withMessage("Неверный формат почты!"),
     check("username")
       .not()
       .isEmpty()
@@ -31,25 +31,28 @@ export const userValidationDescription = () => {
       .isEmpty()
       .withMessage("Фамилия не может быть пустой!"),
     check("isMale")
-      .optional({nullable: true })
+      .optional({ nullable: true })
       .isBoolean()
       .withMessage("Пол должен быть указан как булевое значение!"),
     check("birthDate")
-      .optional({nullable: true })
+      .optional({ nullable: true })
       .isISO8601()
       .toDate()
       .withMessage("Неверный формат даты!"),
-    check("weight").optional().isFloat().withMessage("Вес должен быть числом!"),
+    check("weight")
+      .optional({ nullable: true })
+      .isFloat()
+      .withMessage("Вес должен быть числом!"),
     check("height")
-      .optional({nullable: true })
+      .optional({ nullable: true })
       .isFloat()
       .withMessage("Рост должен быть числом!"),
     check("achievements")
-      .optional({nullable: true })
+      .optional({ nullable: true })
       .isString()
       .withMessage("Достижения должны быть строкой!"),
     check("healthIssues")
-      .optional({nullable: true })
+      .optional({ nullable: true })
       .isString()
       .withMessage("Проблемы со здоровьем должны быть строкой!"),
   ];
