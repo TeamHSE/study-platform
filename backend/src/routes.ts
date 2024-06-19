@@ -4,7 +4,9 @@ import { app } from "./server";
 import { UserController } from "./controllers/UserController";
 import { AuthControllerLogin } from "./controllers/AuthControllerLogin";
 import { AuthControllerRegister } from "./controllers/AuthControllerRegister";
-import {UserControllerGetUserInfo} from "./controllers/UserInfoController"
+import { UserControllerGetUserInfo } from "./controllers/UserInfoController";
+import { UserControllerLogout } from "./controllers/AuthControllerLogout";
+import { UserControllerDeleteUser } from "./controllers/UserDeleteAccountController";
 
 export const registerControllers = () => {
   app.get("/helloWorld", HelloWorldController);
@@ -13,5 +15,7 @@ export const registerControllers = () => {
   app.post("/api/auth/login", AuthControllerLogin);
   app.get("/user", UserController);
   app.post("/user", UserController);
-  app.get("/api/users",UserControllerGetUserInfo)
+  app.get("/api/users", UserControllerGetUserInfo);
+  app.post("/api/auth/logout", UserControllerLogout);
+  app.delete("/api/users",UserControllerDeleteUser)
 };
