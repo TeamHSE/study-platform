@@ -20,7 +20,7 @@ export const userValidationRules = () => {
 
 export const userValidationDescription = () => {
   return [
-    check("login").isEmail().withMessage("Неверный формат почты!"),
+    check("email").isEmail().withMessage("Неверный формат почты!"),
     check("username")
       .not()
       .isEmpty()
@@ -39,7 +39,7 @@ export const userValidationDescription = () => {
       .isISO8601()
       .toDate()
       .withMessage("Неверный формат даты!"),
-    check("weight").optional().isFloat().withMessage("Вес должен быть числом!"),
+    check("weight").optional({nullable: true }).isFloat().withMessage("Вес должен быть числом!"),
     check("height")
       .optional({nullable: true })
       .isFloat()
