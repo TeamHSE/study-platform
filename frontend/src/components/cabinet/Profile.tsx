@@ -10,6 +10,7 @@ import { WELCOME_PAGE } from "@/constants/pages-url.constants";
 import { useProfile } from "@/hooks/useProfile";
 import { CiLogout } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import { AddCourseModal } from "@/components/cabinet/AddCourseModal";
 
 const Profile = () => {
   const [ show, setShow ] = useState(false);
@@ -62,6 +63,12 @@ const Profile = () => {
     router.push(WELCOME_PAGE);
     setShowDelete(false);
   };
+
+  /* COURSE MGM */
+  const [ showAddCourse, setShowAddCourse ] = useState(false);
+
+  const handleShowAddCourse = () => setShowAddCourse(true);
+  const handleCloseAddCourse = () => setShowAddCourse(false);
 
   return (
     isLoading ? (
@@ -126,7 +133,7 @@ const Profile = () => {
               <Col md={ 4 }>$350</Col>
               <Col md={ 4 }>20/08/2024</Col>
             </Row>
-            <Button variant="dark" className="mt-3">
+            <Button variant="dark" className="mt-3" onClick={ handleShowAddCourse }>
               Добавить новый курс
             </Button>
           </Col>
@@ -202,7 +209,7 @@ const Profile = () => {
                 <Form.Control
                   type="date"
                   name="birthDate"
-                  value={ (userInfo?.birthDate && new Date(userInfo.birthDate).toISOString().substr(0, 10)) ?? "" }
+                  value={ (userInfo?.birthDate && new Date(userInfo.birthDate).toISOString().slice(0, 10)) ?? "" }
                   onChange={ handleChange }
                 />
               </Form.Group>
@@ -292,6 +299,9 @@ const Profile = () => {
             </Button>
           </Modal.Footer>
         </Modal>
+
+        {/*Add course modal*/ }
+        <AddCourseModal show={ showAddCourse } handleClose={ handleCloseAddCourse } />
       </Container>
     )
   );
