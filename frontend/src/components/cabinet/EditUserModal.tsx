@@ -95,6 +95,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ show, handleClose,
                 <Form.Check
                   type="radio"
                   label="Мужской"
+                  id="male"
                   name="isMale"
                   value="true"
                   checked={ formData.isMale === true }
@@ -104,6 +105,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ show, handleClose,
                 <Form.Check
                   type="radio"
                   label="Женский"
+                  id="female"
                   name="isMale"
                   value="false"
                   checked={ formData.isMale === false }
