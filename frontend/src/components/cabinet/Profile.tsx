@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { authService } from "@/services/auth.service";
 import { WELCOME_PAGE } from "@/constants/pages-url.constants";
 import { useProfile } from "@/hooks/useProfile";
+import { CiLogout } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 
 const Profile = () => {
   const [ show, setShow ] = useState(false);
@@ -38,10 +40,27 @@ const Profile = () => {
     handleClose();
   };
 
+  /* LOGOUT & DELETE */
   const router = useRouter();
-  const logout = async () => {
+
+  const [ showLogout, setShowLogout ] = useState(false);
+  const [ showDelete, setShowDelete ] = useState(false);
+
+  const handleShowLogout = () => setShowLogout(true);
+  const handleCloseLogout = () => setShowLogout(false);
+  const handleShowDelete = () => setShowDelete(true);
+  const handleCloseDelete = () => setShowDelete(false);
+
+  const handleLogout = async () => {
     await authService.logout();
     router.push(WELCOME_PAGE);
+    setShowLogout(false);
+  };
+
+  const handleDelete = async () => {
+    await authService.delete();
+    router.push(WELCOME_PAGE);
+    setShowDelete(false);
   };
 
   return (
@@ -49,14 +68,26 @@ const Profile = () => {
       <p>Загрузка...</p>
     ) : (
       <Container>
-        <Row className="my-3">
+        <Row className="my-3 justify-content-center">
           <Col md={ 8 } className="text-center">
             <h1>{ user.username }</h1>
-          </Col>
-          <Col md={ 4 } className="d-flex align-items-center justify-content-end">
-            <Button variant="dark" onClick={ handleShow }>
-              <FaEdit /> Редактировать
-            </Button>
+            <Row className="mt-3 justify-content-center">
+              <Col xs={ 12 } md={ 4 } className="d-flex justify-content-center mb-2 mb-md-0">
+                <Button variant="dark" onClick={ handleShow }>
+                  <FaEdit /> Редактировать
+                </Button>
+              </Col>
+              <Col xs={ 12 } md={ 4 } className="d-flex justify-content-center mb-2 mb-md-0">
+                <Button variant="dark" onClick={ handleShowLogout }>
+                  <CiLogout /> Выйти из аккаунта
+                </Button>
+              </Col>
+              <Col xs={ 12 } md={ 4 } className="d-flex justify-content-center">
+                <Button variant="danger" onClick={ handleShowDelete }>
+                  <MdDelete /> Удалить аккаунт
+                </Button>
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row className="my-3">
@@ -78,7 +109,7 @@ const Profile = () => {
         </Row>
         <Row className="my-5">
           <Col md={ 12 }>
-            <h5>Ваши курсы</h5>
+            <h5>Созданные Вами курсы</h5>
             <hr />
             <Row>
               <Col md={ 4 }><strong>Курсы</strong></Col>
@@ -228,7 +259,41 @@ const Profile = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-      </Container>)
+
+        {/* Logout Modal */ }
+        <Modal show={ showLogout } onHide={ handleCloseLogout }>
+          <Modal.Header closeButton>
+            <Modal.Title>Подтвердите Выход из аккаунта</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Вы действительно хотите выйти из аккаунта? Вы сможете войти снова без потери данных</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={ handleCloseLogout }>
+              Отмена
+            </Button>
+            <Button variant="danger" onClick={ handleLogout }>
+              Выйти
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Delete Modal */ }
+        <Modal show={ showDelete } onHide={ handleCloseDelete }>
+          <Modal.Header closeButton>
+            <Modal.Title>Подтвердите Удаление аккаунта</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Вы действительно хотите удалить аккаунт? Все Ваши данные будут уничтожены
+                      безвозвратно</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={ handleCloseDelete }>
+              Отмена
+            </Button>
+            <Button variant="danger" onClick={ handleDelete }>
+              Удалить
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    )
   );
 };
 
