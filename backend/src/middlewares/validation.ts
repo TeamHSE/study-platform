@@ -31,25 +31,25 @@ export const userValidationDescription = () => {
       .isEmpty()
       .withMessage("Фамилия не может быть пустой!"),
     check("isMale")
-      .optional()
+      .optional({nullable: true })
       .isBoolean()
       .withMessage("Пол должен быть указан как булевое значение!"),
     check("birthDate")
-      .optional()
+      .optional({nullable: true })
       .isISO8601()
       .toDate()
       .withMessage("Неверный формат даты!"),
     check("weight").optional().isFloat().withMessage("Вес должен быть числом!"),
     check("height")
-      .optional()
+      .optional({nullable: true })
       .isFloat()
       .withMessage("Рост должен быть числом!"),
     check("achievements")
-      .optional()
+      .optional({nullable: true })
       .isString()
       .withMessage("Достижения должны быть строкой!"),
     check("healthIssues")
-      .optional()
+      .optional({nullable: true })
       .isString()
       .withMessage("Проблемы со здоровьем должны быть строкой!"),
   ];
