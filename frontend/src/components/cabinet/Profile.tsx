@@ -71,6 +71,7 @@ const Profile = () => {
     if (newUser) {
       setShowEditUserForm(false);
       setUserInfo(newUser);
+      location.reload();
     }
   };
 
