@@ -11,35 +11,11 @@ import { useProfile } from "@/hooks/useProfile";
 import { CiLogout } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { AddCourseModal } from "@/components/cabinet/AddCourseModal";
+import { EditUserModal } from "@/components/cabinet/EditUserModal";
+import { userService } from "@/services/user.service";
 
 const Profile = () => {
-  const [ show, setShow ] = useState(false);
-  const [ userInfo, setUserInfo ] = useState<IUser | null>(null);
   const { user, isLoading } = useProfile();
-
-  useEffect(() => {
-    if (user) {
-      setUserInfo(user);
-    }
-  }, [ user ]);
-
-  const handleClose = () => {
-    setShow(false);
-    if (user) {
-      setUserInfo(user);
-    }
-  };
-  const handleShow = () => setShow(true);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo((prev) => (prev ? { ...prev, [name]: value } : null));
-  };
-
-  const handleSave = () => {
-    // todo: update user logic
-    handleClose();
-  };
 
   /* LOGOUT & DELETE */
   const router = useRouter();
@@ -70,6 +46,33 @@ const Profile = () => {
   const handleShowAddCourse = () => setShowAddCourse(true);
   const handleCloseAddCourse = () => setShowAddCourse(false);
 
+  /* USER EDIT */
+  const [ showEditUserForm, setShowEditUserForm ] = useState(false);
+  const [ userInfo, setUserInfo ] = useState<IUser | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      setUserInfo(user);
+    }
+  }, [ user ]);
+
+  const handleShowEditUserForm = () => {
+    if (user) {
+      setUserInfo(user);
+      setShowEditUserForm(true);
+    }
+  };
+
+  const handleCloseEditUserForm = () => setShowEditUserForm(false);
+
+  const handleSaveEditUserForm = async (data: IUser) => {
+    let newUser = await userService.updateUser(data);
+    if (newUser) {
+      setShowEditUserForm(false);
+      setUserInfo(newUser);
+    }
+  };
+
   return (
     isLoading ? (
       <p>Загрузка...</p>
@@ -80,7 +83,7 @@ const Profile = () => {
             <h1>{ user.username }</h1>
             <Row className="mt-3 justify-content-center">
               <Col xs={ 12 } md={ 4 } className="d-flex justify-content-center mb-2 mb-md-0">
-                <Button variant="dark" onClick={ handleShow }>
+                <Button variant="dark" onClick={ handleShowEditUserForm }>
                   <FaEdit /> Редактировать
                 </Button>
               </Col>
@@ -139,133 +142,12 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Modal show={ show } onHide={ handleClose }>
-          <Modal.Header closeButton>
-            <Modal.Title>Редактировать информацию пользователя</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group controlId="formFirstName">
-                <Form.Label>Имя</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Введите имя"
-                  name="firstName"
-                  value={ userInfo?.firstName }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formLastName">
-                <Form.Label>Фамилия</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Введите фамилию"
-                  name="lastName"
-                  value={ userInfo?.lastName }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formUsername">
-                <Form.Label>Никнейм</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Введите никнейм"
-                  name="username"
-                  value={ userInfo?.username }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Введите email"
-                  name="email"
-                  value={ userInfo?.email }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formIsMale">
-                <Form.Label>Пол</Form.Label>
-                <Form.Check
-                  type="radio"
-                  label="Мужской"
-                  name="isMale"
-                  value="true"
-                  checked={ userInfo?.isMale ?? true }
-                  onChange={ () => setUserInfo((prev) => (prev ? { ...prev, isMale: true } : null)) }
-                />
-                <Form.Check
-                  type="radio"
-                  label="Женский"
-                  name="isMale"
-                  value="false"
-                  checked={ !(userInfo?.isMale ?? true) }
-                  onChange={ () => setUserInfo((prev) => (prev ? { ...prev, isMale: false } : null)) }
-                />
-              </Form.Group>
-              <Form.Group controlId="formBirthDate">
-                <Form.Label>Дата рождения</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="birthDate"
-                  value={ (userInfo?.birthDate && new Date(userInfo.birthDate).toISOString().slice(0, 10)) ?? "" }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formWeight">
-                <Form.Label>Вес (кг)</Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Введите вес"
-                  name="weight"
-                  value={ userInfo?.weight }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formHeight">
-                <Form.Label>Рост (см)</Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Введите рост"
-                  name="height"
-                  value={ userInfo?.height }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formAchievements">
-                <Form.Label>Достижения</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={ 3 }
-                  placeholder="Введите достижения"
-                  name="achievements"
-                  value={ userInfo?.achievements }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-              <Form.Group controlId="formHealthIssues">
-                <Form.Label>Проблемы со здоровьем</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={ 3 }
-                  placeholder="Введите проблемы со здоровьем"
-                  name="healthIssues"
-                  value={ userInfo?.healthIssues }
-                  onChange={ handleChange }
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={ handleClose }>
-              Отмена
-            </Button>
-            <Button variant="primary" onClick={ handleSave }>
-              Сохранить
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <EditUserModal
+          show={ showEditUserForm }
+          handleClose={ handleCloseEditUserForm }
+          userInfo={ userInfo }
+          handleSave={ handleSaveEditUserForm }
+        />
 
         {/* Logout Modal */ }
         <Modal show={ showLogout } onHide={ handleCloseLogout }>
