@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Button, Card, Container, Form } from "react-bootstrap";
 import { DASHBOARD_PAGE, REGISTER_PAGE } from "@/constants/pages-url.constants";
 import { authService } from "@/services/auth.service";
-import { generalRegex } from "@/utils";
+import { emailRegex, generalRegex } from "@/utils";
 
 export function Login() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IAuthForm>({
@@ -35,9 +35,6 @@ export function Login() {
       toast.success("Успешный вход в аккаунт!");
       reset();
       push(redirect);
-    },
-    onError(err) {
-      toast.error(err.message);
     }
   });
 
@@ -62,8 +59,8 @@ export function Login() {
                                   minLength: { value: 3, message: "Введите не менее 3 символов" },
                                   maxLength: { value: 100, message: "Введите не более 100 символов" },
                                   pattern: {
-                                    value: generalRegex,
-                                    message: "Введите корректные символы"
+                                    value: emailRegex,
+                                    message: "Введите корректный email"
                                   }
                                 })
                             } />

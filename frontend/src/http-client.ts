@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getAccessToken, removeFromStorage } from "@/services/auth-token.service";
 import { toast } from "sonner";
+import { div } from "@/utils";
 
 const options = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -13,6 +14,39 @@ const options = {
 
 // For auth requests
 export const httpUnauthorized = axios.create(options);
+httpUnauthorized.interceptors.response.use(
+  config => config,
+  async error => {
+    if (error?.response?.status === 422 || error?.response?.status === 400) {
+      if (error.response.data.errors) {
+        const validationErrors = error.response.data.errors.map((e: any) => "- " + e.msg);
+        toast.error("Ошибки валидации!",
+          {
+            duration: 10000,
+            closeButton: true,
+            important: true,
+            description: validationErrors.join("\n"),
+            style: {
+              whiteSpace: "pre-line"
+            }
+          });
+      } else {
+        toast.error(error.response.data.message);
+      }
+      throw error;
+    }
+
+    if (div(error?.response?.status, 100) === 4) {
+      toast.error(error?.response?.data?.message);
+    }
+
+    if (process.env.NODE_ENV == "production") {
+      toast.error("Произошла ошибка, обратитесь к разработчикам",
+        { duration: 10000, closeButton: true, important: true });
+    }
+
+    throw error;
+  });
 
 // For general requests
 export const http = axios.create(options);

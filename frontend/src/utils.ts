@@ -12,3 +12,7 @@ export const lettersRegex = /^[A-Za-zА-Яа-я]+$/;
 export const matchPasswords = (password: string, confirmPassword: string): boolean => {
   return password === confirmPassword;
 };
+
+export const div = (a: number, b: number) => {
+  return (a - a % b) / b;
+};
