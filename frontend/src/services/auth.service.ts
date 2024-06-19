@@ -49,8 +49,8 @@ export const authService = {
           "password": form.password
         });
       if (response.status === 200) {
-        if (response.data.accessToken) {
-          saveTokenStorage(response.data.accessToken);
+        if (response.data.token) {
+          saveTokenStorage(response.data.token);
         }
       }
     } catch (error: any) {
@@ -70,18 +70,6 @@ export const authService = {
     }
 
     return null;
-  },
-
-  async getNewTokens() {
-    const response = await httpUnauthorized.post<IAuthResponse>(
-      "/auth/login/access-token"
-    );
-
-    if (response.data.accessToken) {
-      saveTokenStorage(response.data.accessToken);
-    }
-
-    return response;
   },
 
   async logout() {
