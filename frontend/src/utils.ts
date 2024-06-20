@@ -17,4 +17,4 @@ export const div = (a: number, b: number) => {
   return (a - a % b) / b;
 };
 
-export const cleanString = (s: string) => s.trim().replaceAll(/\s{2,}/, " ");
+export const cleanString = (s: string) => s.trim().replaceAll(/\s{2,}/g, " ");
