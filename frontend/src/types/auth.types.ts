@@ -5,9 +5,9 @@ export interface IAuthForm {
 
 export interface IRegisterForm extends IAuthForm {
   confirmPassword: string;
-  username: string,
-  lastName: string,
-  firstName: string
+  username: string;
+  lastName: string;
+  firstName: string;
 }
 
 export interface IUser extends IUserId {

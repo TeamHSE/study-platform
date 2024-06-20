@@ -2,6 +2,7 @@ import { IAuthForm, IAuthResponse, IRegisterForm } from "@/types/auth.types";
 import { removeFromStorage, saveTokenStorage } from "./auth-token.service";
 import { http, httpUnauthorized } from "@/http-client";
 import { AxiosError, isAxiosError } from "axios";
+import { cleanString } from "@/utils";
 
 const unknownErrorMsg = "Возникла непредвиденная ошибка, мы уже работаем над этим";
 
@@ -10,11 +11,11 @@ export const authService = {
     try {
       await httpUnauthorized.post("/auth/register",
         {
-          "login": form.email,
-          "username": form.username,
-          "password": form.password,
-          "lastName": form.lastName,
-          "firstName": form.lastName
+          "login": cleanString(form.email),
+          "username": cleanString(form.username),
+          "password": cleanString(form.password),
+          "lastName": cleanString(form.lastName),
+          "firstName": cleanString(form.lastName)
         });
 
       return null;
@@ -45,8 +46,8 @@ export const authService = {
       const response = await httpUnauthorized.post<IAuthResponse>(
         "/auth/login",
         {
-          "login": form.email,
-          "password": form.password
+          "login": cleanString(form.email),
+          "password": cleanString(form.password)
         });
       if (response.status === 200) {
         if (response.data.token) {
@@ -81,6 +82,7 @@ export const authService = {
 
     return response;
   },
+
   async delete() {
     const response = await http.delete("/users");
 

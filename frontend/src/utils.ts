@@ -16,3 +16,5 @@ export const matchPasswords = (password: string, confirmPassword: string): boole
 export const div = (a: number, b: number) => {
   return (a - a % b) / b;
 };
+
+export const cleanString = (s: string) => s.trim().replaceAll(/\s{2,}/, " ");
