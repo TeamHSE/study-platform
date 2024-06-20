@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { IUser } from "@/types/auth.types";
 
 interface EditUserModalProps {
@@ -10,33 +11,20 @@ interface EditUserModalProps {
 }
 
 export const EditUserModal: React.FC<EditUserModalProps> = ({ show, handleClose, userInfo, handleSave }) => {
-  const [ formData, setFormData ] = useState<IUser | null>(null);
+  const { control, handleSubmit, reset, formState: { errors } } = useForm<IUser>({
+    mode: "onTouched",
+    defaultValues: userInfo || {}
+  });
 
   useEffect(() => {
     if (userInfo) {
-      setFormData(userInfo);
+      reset(userInfo);
     }
-  }, [ userInfo ]);
+  }, [ userInfo, reset ]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    if (formData) {
-      setFormData({
-        ...formData,
-        [name]: name === "isMale" ? value === "true" : value
-      });
-    }
+  const onSubmit: SubmitHandler<IUser> = (data) => {
+    handleSave(data);
   };
-
-  const handleSubmit = () => {
-    if (formData) {
-      handleSave(formData);
-    }
-  };
-
-  if (!formData) {
-    return null;
-  }
 
   return (
     <Modal show={ show } onHide={ handleClose }>
@@ -44,123 +32,202 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ show, handleClose,
         <Modal.Title>Редактировать пользователя</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={ handleSubmit(onSubmit) }>
           <Form.Group controlId="formUsername">
-            <Form.Label>Никнейм</Form.Label>
-            <Form.Control
-              type="text"
+            <Form.Label className={ "my-1" }>Никнейм</Form.Label>
+            <Controller
               name="username"
-              value={ formData.username }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { required: "Введите никнейм", maxLength: 50 } }
+              render={ ({ field }) => (
+                <Form.Control type="text" isInvalid={ !!errors.username } { ...field } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.username && errors.username.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formFirstName">
-            <Form.Label>Имя</Form.Label>
-            <Form.Control
-              type="text"
+            <Form.Label className={ "my-1" }>Имя</Form.Label>
+            <Controller
               name="firstName"
-              value={ formData.firstName }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { required: "Введите имя", maxLength: 50 } }
+              render={ ({ field }) => (
+                <Form.Control type="text" isInvalid={ !!errors.firstName } { ...field } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.firstName && errors.firstName.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formLastName">
-            <Form.Label>Фамилия</Form.Label>
-            <Form.Control
-              type="text"
+            <Form.Label className={ "my-1" }>Фамилия</Form.Label>
+            <Controller
               name="lastName"
-              value={ formData.lastName }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { required: "Введите фамилию", maxLength: 50 } }
+              render={ ({ field }) => (
+                <Form.Control type="text" isInvalid={ !!errors.lastName } { ...field } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.lastName && errors.lastName.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
+            <Form.Label className={ "my-1" }>Email</Form.Label>
+            <Controller
               name="email"
-              value={ formData.email }
-              onChange={ handleChange }
+              control={ control }
+              rules={ {
+                required: "Введите email",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Введите корректный email"
+                }
+              } }
+              render={ ({ field }) => (
+                <Form.Control type="email" isInvalid={ !!errors.email } { ...field } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.email && errors.email.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formBirthDate">
-            <Form.Label>Дата рождения</Form.Label>
-            <Form.Control
-              type="date"
+            <Form.Label className={ "my-1" }>Дата рождения</Form.Label>
+            <Controller
               name="birthDate"
-              value={ formData.birthDate ? formData.birthDate.split("T")[0] : "" }
-              onChange={ handleChange }
+              control={ control }
+              rules={ {
+                required: "Введите корректную дату рождения",
+                validate: (date) => {
+                  const selectedDate = (date && new Date(date)) ?? new Date();
+                  return selectedDate <= new Date() || "Дата рождения не может быть в будущем";
+                }
+              } }
+              render={ ({ field }) => (
+                <Form.Control
+                  type="date"
+                  isInvalid={ !!errors.birthDate }
+                  { ...field }
+                  value={ field.value ? field.value.toString() : "" }
+                />
+              ) }
             />
-            <Form.Group controlId="formGender">
-              <Form.Label>Пол</Form.Label>
-              <div>
-                <Form.Check
-                  type="radio"
-                  label="Мужской"
-                  id="male"
-                  name="isMale"
-                  value="true"
-                  checked={ formData.isMale === true }
-                  onChange={ handleChange }
-                  inline
-                />
-                <Form.Check
-                  type="radio"
-                  label="Женский"
-                  id="female"
-                  name="isMale"
-                  value="false"
-                  checked={ formData.isMale === false }
-                  onChange={ handleChange }
-                  inline
-                />
-              </div>
-            </Form.Group>
+            <Form.Control.Feedback type="invalid">
+              { errors.birthDate && errors.birthDate.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
+          <Form.Group controlId="formGender">
+            <Form.Label className={ "my-1" }>Пол</Form.Label>
+            <Controller
+              name="isMale"
+              control={ control }
+              rules={ { required: "Выберите пол" } }
+              render={ ({ field }) => (
+                <div>
+                  <Form.Check
+                    type="radio"
+                    label="Мужской"
+                    id="male"
+                    value="true"
+                    checked={ field.value === true }
+                    onChange={ () => field.onChange(true) }
+                    inline
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Женский"
+                    id="female"
+                    value="false"
+                    checked={ field.value === false }
+                    onChange={ () => field.onChange(false) }
+                    inline
+                  />
+                </div>
+              ) }
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.isMale && errors.isMale.message }
+            </Form.Control.Feedback>
+          </Form.Group>
+
           <Form.Group controlId="formWeight">
-            <Form.Label>Вес</Form.Label>
-            <Form.Control
-              type="number"
+            <Form.Label className={ "my-1" }>Вес (кг)</Form.Label>
+            <Controller
               name="weight"
-              value={ formData.weight || "" }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { required: "Введите вес", min: 0, max: 500 } }
+              render={ ({ field }) => (
+                <Form.Control type="number" isInvalid={ !!errors.weight } { ...field } min={ 30 } max={ 500 } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.weight && errors.weight.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formHeight">
-            <Form.Label>Рост</Form.Label>
-            <Form.Control
-              type="number"
+            <Form.Label className={ "my-1" }>Рост (см)</Form.Label>
+            <Controller
               name="height"
-              value={ formData.height || "" }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { required: "Введите рост", min: 0, max: 300 } }
+              render={ ({ field }) => (
+                <Form.Control type="number" isInvalid={ !!errors.height } { ...field } min={ 100 } max={ 300 } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.height && errors.height.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formAchievements">
-            <Form.Label>Достижения</Form.Label>
-            <Form.Control
-              as="textarea"
+            <Form.Label className={ "my-1" }>Достижения</Form.Label>
+            <Controller
               name="achievements"
-              value={ formData.achievements || "" }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { max: 1000 } }
+              render={ ({ field }) => (
+                <Form.Control as="textarea" isInvalid={ !!errors.achievements } { ...field } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.achievements && errors.achievements.message }
+            </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="formHealthIssues">
-            <Form.Label>Проблемы со здоровьем</Form.Label>
-            <Form.Control
-              as="textarea"
+            <Form.Label className={ "my-1" }>Проблемы со здоровьем</Form.Label>
+            <Controller
               name="healthIssues"
-              value={ formData.healthIssues || "" }
-              onChange={ handleChange }
+              control={ control }
+              rules={ { max: 1000 } }
+              render={ ({ field }) => (
+                <Form.Control as="textarea" isInvalid={ !!errors.healthIssues } { ...field } />
+              ) }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.healthIssues && errors.healthIssues.message }
+            </Form.Control.Feedback>
           </Form.Group>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={ handleClose }>
+              Отмена
+            </Button>
+            <Button variant="primary" type={ "submit" }>
+              Сохранить
+            </Button>
+          </Modal.Footer>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={ handleClose }>
-          Отмена
-        </Button>
-        <Button variant="primary" onClick={ handleSubmit }>
-          Сохранить
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };
