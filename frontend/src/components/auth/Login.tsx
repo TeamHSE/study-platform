@@ -33,8 +33,8 @@ export function Login() {
     },
     onSuccess() {
       toast.success("Успешный вход в аккаунт!");
-      reset();
       push(redirect);
+      reset();
     }
   });
 
@@ -55,7 +55,7 @@ export function Login() {
                             {
                               ...register("email",
                                 {
-                                  required: "Введите, пожалуйста, логин",
+                                  required: "Введите, пожалуйста, e-mail",
                                   minLength: { value: 3, message: "Введите не менее 3 символов" },
                                   maxLength: { value: 100, message: "Введите не более 100 символов" },
                                   pattern: {

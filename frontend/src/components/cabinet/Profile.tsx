@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { IUser } from "@/types/auth.types";
@@ -115,8 +115,19 @@ const Profile = () => {
             </p>
             <p><strong>Вес:</strong> { user.weight ?? "?" } кг</p>
             <p><strong>Рост:</strong> { user.height ?? "?" } см</p>
-            <p><strong>Достижения:</strong> { user.achievements ?? "Не указаны" }</p>
-            <p><strong>Проблемы со здоровьем:</strong> { user.healthIssues ?? "Не указаны" }</p>
+            <p>
+              <strong>Достижения:</strong> {
+              !user.achievements || user.achievements.length < 1
+                ? "Не указаны"
+                : user.achievements }
+            </p>
+            <p>
+              <strong>Проблемы со
+                      здоровьем:</strong> {
+              !user.healthIssues || user.healthIssues.length < 1
+                ? "Не указаны"
+                : user.healthIssues }
+            </p>
           </Col>
         </Row>
         <Row className="my-5">
