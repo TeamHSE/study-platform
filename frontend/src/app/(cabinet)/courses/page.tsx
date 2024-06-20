@@ -1,4 +1,9 @@
+"use client";
+
 import React from "react";
+import { useProfile } from "@/hooks/useProfile";
+import { LuLoader } from "react-icons/lu";
+import { Container, Row, Col, Card } from "react-bootstrap"; // Import Bootstrap components
 
 const courses = [
   {
@@ -17,29 +22,35 @@ const courses = [
 ];
 
 const Courses: React.FC = () => {
+  const { user } = useProfile();
+
   return (
-    <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Курсы</h1>
-        <div>
-          <span className="text-white">User Name</span>
-        </div>
-      </div>
-      <div className="row">
+    <Container fluid>
+      <Row className="mb-4">
+        <Col>
+          <div className="d-flex justify-content-between align-items-center">
+            <h1>Курсы</h1>
+            <div>
+              <span className="text-dark">{ user?.username ?? <LuLoader /> }</span>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
         { courses.map((course, index) => (
-          <div key={ index } className="col-md-6 col-lg-4 mb-4">
-            <div className="card">
-              <div className="card-body">
+          <Col key={ index } md={ 6 } lg={ 4 } className="mb-4">
+            <Card>
+              <Card.Body>
                 <h5 className="card-title">{ course.category }</h5>
                 <div className="card-text">Курс: { course.name }</div>
                 <div className="card-text">Цена: { course.price }</div>
                 <div className="card-text">Дата: { course.date }</div>
-              </div>
-            </div>
-          </div>
+              </Card.Body>
+            </Card>
+          </Col>
         )) }
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

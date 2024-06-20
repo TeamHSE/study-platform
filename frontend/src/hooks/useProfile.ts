@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { userService } from "@/services/user.service";
+import { IUser } from "@/types/auth.types";
 
 export function useProfile() {
   const { data, isLoading, isSuccess } = useQuery({
@@ -7,6 +8,7 @@ export function useProfile() {
     queryFn: () => userService.getUser()
   });
 
-  return { data, isLoading, isSuccess };
+  let user = data as IUser
+  return { user, isLoading, isSuccess };
 }
 

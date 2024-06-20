@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { EnumTokens } from "./services/auth-token.service";
-import { AUTH_BASE, COURSES_PAGE, LOGIN_PAGE, LOGOUT_PAGE } from "./constants/pages-url.constants";
+import { AUTH_BASE, LOGIN_PAGE, LOGOUT_PAGE, PROFILE_PAGE } from "./constants/pages-url.constants";
 
 export async function middleware(request: NextRequest) {
   const { url, cookies } = request;
@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
 
   const redirect = "redirect";
   if (isAuthPage && token) {
-    let nextPage = request.nextUrl.searchParams.get(redirect) ?? COURSES_PAGE;
+    let nextPage = request.nextUrl.searchParams.get(redirect) ?? PROFILE_PAGE;
     return NextResponse.redirect(new URL(nextPage, url));
   }
 

@@ -5,9 +5,9 @@ export interface IAuthForm {
 
 export interface IRegisterForm extends IAuthForm {
   confirmPassword: string;
-  username: string,
-  lastName: string,
-  firstName: string
+  username: string;
+  lastName: string;
+  firstName: string;
 }
 
 export interface IUser extends IUserId {
@@ -15,11 +15,10 @@ export interface IUser extends IUserId {
   lastName: string;
   username: string;
   email: string;
-  role: string;
-  isMale: boolean;
-  birthDate: Date;
-  weight: number;
-  height: number;
+  isMale: boolean | undefined;
+  birthDate: Date | undefined;
+  weight: number | undefined;
+  height: number | undefined;
   achievements: string;
   healthIssues: string;
 }

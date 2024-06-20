@@ -31,11 +31,8 @@ export function Register() {
     },
     onSuccess() {
       toast.success("Успешная регистрация!");
-      reset();
       push(LOGIN_PAGE);
-    },
-    onError(err) {
-      toast.error(err.message);
+      reset();
     }
   });
 
