@@ -13,8 +13,8 @@ import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("users")
 export class User {
-  @PrimaryGeneratedColumn()
-  userId: UUID;
+  @PrimaryGeneratedColumn("uuid")
+  userId: "uuid";
 
   @Column({ type: "varchar", length: 50 })
   firstName: string;

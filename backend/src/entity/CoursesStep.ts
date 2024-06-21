@@ -11,11 +11,11 @@ import { UsersActivity } from "./UsersActivity";
 
 @Entity("courses_steps")
 export class CoursesStep extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "integer" })
-  stepId: number | undefined;
+  @PrimaryGeneratedColumn("uuid")
+  stepId: "uuid" | undefined;
 
-  @Column({ type: "integer" })
-  moduleId: number | undefined;
+  @Column({ type: "uuid" })
+  moduleId: "uuid" | undefined;
 
   @Column({ type: "varchar", length: 250 })
   name: string | undefined;

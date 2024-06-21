@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Entity,
   PrimaryGeneratedColumn,
   Column,
@@ -10,9 +11,9 @@ import { CoursesStep } from "./CoursesStep";
 import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("courses")
-export class Course {
-  @PrimaryGeneratedColumn()
-  courseId: string;
+export class Course extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
+  courseId: "uuid" | undefined;
 
   @Column({ unique: true, type: "varchar", length: 250 })
   name: string;
