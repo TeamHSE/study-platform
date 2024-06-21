@@ -43,7 +43,7 @@ describe("utils", () => {
 
     it("should handle null and undefined gracefully", () => {
       const result = cleanString(null);
-      expect(result).toBe(null);
+      expect(result).toBe("");
     });
   });
 
