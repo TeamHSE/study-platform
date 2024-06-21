@@ -12,7 +12,7 @@ import { CoursesViewer } from "./CoursesViewers";
 @Entity("courses")
 export class Course {
   @PrimaryGeneratedColumn()
-  id: number;
+  courseId: string;
 
   @Column({ unique: true, type: "varchar", length: 250 })
   name: string;

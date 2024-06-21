@@ -137,4 +137,4 @@ dist
 
 # rm extra package at rood dir
 ./package.json
-./*-lock.y*ml
+./*-lock.y*ml.codiumai

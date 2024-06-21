@@ -12,16 +12,16 @@ import { User } from "./User";
 @Entity("courses_viewers")
 export class CoursesViewer extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "integer" })
-  viewerId: number | undefined;
+  viewerId: string;
 
   @Column({ type: "integer" })
-  userId: number | undefined;
+  userId: string | undefined;
 
   @Column({ type: "integer" })
-  courseId: number | undefined;
+  courseId: string | undefined;
 
   @Column({ type: "integer" })
-  roleId: number | undefined;
+  roleId: string | undefined;
 
   @OneToMany(() => UsersRole, (role) => role.viewer)
   roles: UsersRole[];

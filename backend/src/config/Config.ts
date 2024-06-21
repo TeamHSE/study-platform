@@ -1,7 +1,3 @@
-import * as dotenv from "dotenv";
-
-dotenv.config({ path: "backend/**/*.env" });
-
 class Config {
   dbHost: string;
 }
