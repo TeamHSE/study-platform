@@ -11,13 +11,17 @@ Backend WEB API application using:
 ### Local
 1. Install dependencies
   ```pnpm i```
-   - Install postgres and add to config connection params
-   - Generate RSA keys for JWT authentication
+   - Install postgres:
+     - add to [config](./src/config/Config.ts) connection params
+       - set param at [db.ts DataSource](./src/db.ts)
+       ```synchronize: true```
+     
+   - Generate RSA keys for JWT authentication _(terminal / git bash script below)_
         ```
        mkdir -p src/config \
        && openssl genpkey -algorithm RSA -out src/config/private.pem -pkeyopt rsa_keygen_bits:2048 \
        && openssl rsa -pubout -in src/config/private.pem -out src/config/public.pem \
-       && chmod 644 src/config/private.pem src/config/public.pem
+       && chmod 644 src/config/private.pem src/config/public.pem \
        ```
 2. Start backend:
    - Production ready: 
