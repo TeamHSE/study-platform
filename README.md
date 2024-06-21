@@ -1,14 +1,27 @@
 # Train platform
-Проект по разработке веб-приложения для организации тренировочных курсов с элементами геймификации.
+Проект по разработке веб-приложения для организации тренировочных курсов с элементами геймификации
 
+Технологии:
+- Frontend: React, Next.js, Bootstrap
+- Backend: Node.js, Express, ORM
+- DB: PostgreSQL
 
 # Quick start
 
-Запуск проекта:
-- backend: [http://localhost:3000](http://localhost:3000)
-- frontend: [http://localhost:3001](http://localhost:3001)
+## Информация о проекте
+Соглашения о процессе ведения проекта (роли, git, GitHub), а также документация доступны в [Wiki](https://github.com/TeamHSE/train-platform/wiki) проекта
 
+Вы также можете непосредственно отслеживать ход выполнения задач проекта в [Issues](https://github.com/TeamHSE/train-platform/issues), [Pull requests](https://github.com/TeamHSE/train-platform/pulls), а также на [Kanban-доске](https://github.com/orgs/TeamHSE/projects/1) проекта
 
+## Запуск проекта
+
+### Docker (рекомендуется)
+Требования: Docker, docker-compose<br>
+
+Для запуска необходимо в корне проекта выполнить команду
 ```
 docker-compose up --build
 ```
+В Docker должны появиться 3 контейнера: для backend, frontend и postgres<br>
+Доступ к интерфейсу приложения по умолчанию осуществляется по адресу http://localhost:3001
+
