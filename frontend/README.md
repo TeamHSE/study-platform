@@ -20,4 +20,3 @@ bun dev
 Откройте http://localhost:3001 в вашем браузере, чтобы увидеть результат.
 
 По любым трудностям пишите в [Дискуссии](https://github.com/TeamHSE/train-platform/discussions/62) – будем рады оперативно помочь!
-

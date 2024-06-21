@@ -51,10 +51,10 @@ export const AuthControllerRegister = [
     await userRepository.save(newUser);
 
     try {
-      const privateKey = config.readPrivateKey(); 
+      const privateKey = config.readPrivateKey();
 
       const token = jwt.sign({ login: newUser.email }, privateKey, {
-        expiresIn: "1h",
+        expiresIn: "1000h",
         algorithm: "RS256",
       });
 

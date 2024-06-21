@@ -2,7 +2,6 @@ services:
   backend:
     build:
       context: ./backend
-    #      target: final
     container_name: backend-box
     ports:
       - 3000:3000
@@ -10,13 +9,10 @@ services:
       DB_HOST: postgres
       PRIVATE_KEY_PATH: src/config/private.pem
       PUBLIC_KEY_PATH: src/config/public.pem
-      FRONTEND_URL: "http://frontend-ui:3001"
+      FRONTEND_URL: "http://localhost:3001"
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-      - backend-network
-      - application-network
 
   postgres:
     image: "postgres:14.8-alpine3.18"
@@ -33,29 +29,17 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: [ "CMD", "pg_isready" ]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - backend-network
 
   frontend:
     container_name: frontend-ui
     build:
       context: ./frontend
-    environment:
-      NODE_ENV: production
     ports:
       - 3001:3001
-    networks:
-      - application-network
-
-networks:
-  backend-network:
-    driver: bridge
-  application-network:
-    driver: bridge
 
 volumes:
   db:
