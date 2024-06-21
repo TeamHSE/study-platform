@@ -1,4 +1,4 @@
-[![CI](https://github.com/TeamHSE/train-platform/actions/workflows/ci-front.yml/badge.svg)](https://github.com/TeamHSE/train-platform/actions/workflows/ci-front.yml)
+[![CI Frontend](https://github.com/TeamHSE/train-platform/actions/workflows/ci-front.yml/badge.svg)](https://github.com/TeamHSE/train-platform/actions/workflows/ci-front.yml)
 # About
 
 Проект по разработке веб-приложения для организации тренировочных курсов с элементами геймификации
