@@ -2,7 +2,6 @@ services:
   backend:
     build:
       context: ./backend
-    #      target: final
     container_name: backend-box
     ports:
       - 3000:3000
@@ -46,6 +45,7 @@ services:
       context: ./frontend
     environment:
       NODE_ENV: production
+      API_URL: http://backend-box:3000/api
     ports:
       - 3001:3001
     networks:
