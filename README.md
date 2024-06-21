@@ -13,6 +13,8 @@
 
 Вы также можете непосредственно отслеживать ход выполнения задач проекта в [Issues](https://github.com/TeamHSE/train-platform/issues), [Pull requests](https://github.com/TeamHSE/train-platform/pulls), а также на [Kanban-доске](https://github.com/orgs/TeamHSE/projects/1) проекта
 
+Что-то обсудить, предложить или задать вопрос можно в [разделе дискуссий](https://github.com/TeamHSE/train-platform/discussions/62). Будем рады пообщаться!
+
 ## Запуск проекта
 
 ### Docker (рекомендуется)
@@ -25,3 +27,6 @@ docker-compose up --build
 В Docker должны появиться 3 контейнера: для backend, frontend и postgres<br>
 Доступ к интерфейсу приложения по умолчанию осуществляется по адресу http://localhost:3001
 
+### Ручной запуск
+
+Инструкции по ручному запуску приложения расположены в директориях backend (для запуска бэкенд-приложения) и frontend (для запуска фронтенд-приложения)
