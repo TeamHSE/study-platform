@@ -7,13 +7,18 @@ Backend WEB API application using:
 - TypeORM
 - pnpm
 
-Application using clean architecture.
-
 # Quick start
 ### Local
 1. Install dependencies
   ```pnpm i```
    - Install postgres and add to config connection params
+   - Generate RSA keys for JWT authentication
+        ```
+       mkdir -p src/config \
+       && openssl genpkey -algorithm RSA -out src/config/private.pem -pkeyopt rsa_keygen_bits:2048 \
+       && openssl rsa -pubout -in src/config/private.pem -out src/config/public.pem \
+       && chmod 644 src/config/private.pem src/config/public.pem
+       ```
 2. Start backend:
    - Production ready: 
       ```pnpm start```
