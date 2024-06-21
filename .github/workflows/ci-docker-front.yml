@@ -14,7 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Where am I
-      run: ls
     - name: Build the Docker image
-      run: docker build ./frontend/ --file Dockerfile --tag frontend:$(date +%s)
+      run: docker build . --file ./frontend/Dockerfile --tag frontend:$(date +%s)
