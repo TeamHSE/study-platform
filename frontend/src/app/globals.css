@@ -128,3 +128,27 @@ a {
 .landing-section {
     height: 80dvh;
 }
+
+/* Add this to your global CSS file */
+
+.apply-section {
+    margin-top: 50px;
+}
+
+.course-header {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.course-content {
+    margin-top: 50px;
+}
+
+.modules-list {
+    list-style: none;
+    padding: 0;
+}
+
+.module-content {
+    margin-top: 20px;
+}

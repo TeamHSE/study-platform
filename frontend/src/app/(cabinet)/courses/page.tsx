@@ -3,20 +3,21 @@
 import React from "react";
 import { useProfile } from "@/hooks/useProfile";
 import { LuLoader } from "react-icons/lu";
-import { Container, Row, Col, Card } from "react-bootstrap"; // Import Bootstrap components
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { COURSES_PAGE } from "@/constants/pages-url.constants"; // Import Bootstrap components
 
 const courses = [
   {
-    name: "Вс тело за 1 час",
+    name: "Всe тело за 1 час",
     price: "$350",
     date: "20/08/2024",
     category: "Full-body"
   },
   {
-    name: "Название курса",
+    name: "Утренняя зарядка",
     price: "$350",
     date: "20/08/2024",
-    category: "Coding"
+    category: "Разминки"
   }
   // Add more courses as needed
 ];
@@ -45,6 +46,7 @@ const Courses: React.FC = () => {
                 <div className="card-text">Курс: { course.name }</div>
                 <div className="card-text">Цена: { course.price }</div>
                 <div className="card-text">Дата: { course.date }</div>
+                <a href={ COURSES_PAGE + "/1" } className="stretched-link"></a>
               </Card.Body>
             </Card>
           </Col>
