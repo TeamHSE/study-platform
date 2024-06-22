@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { User } from "../entity/User";
-import { AppDataSource } from "../db";
-import { userValidationDescription } from "../middlewares/validation";
-import { verifyToken } from "../middlewares/verifyToken";
+import { User } from "../../entity/User";
+import { AppDataSource } from "../../db";
+import { userValidationDescription } from "../../middlewares/validation";
+import { verifyToken } from "../../middlewares/verifyToken";
 
 export const UserControllerUpdate = [
   verifyToken,
@@ -18,7 +18,9 @@ export const UserControllerUpdate = [
 
       const login = req.user?.login;
       if (!login) {
-        return res.status(403).json({ message: "Не удалось идентифицировать пользователя" });
+        return res
+          .status(403)
+          .json({ message: "Не удалось идентифицировать пользователя" });
       }
 
       const userRepository = AppDataSource.getRepository(User);

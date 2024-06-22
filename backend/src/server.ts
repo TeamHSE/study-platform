@@ -5,15 +5,13 @@ import cors from "cors";
 
 export const app = express();
 const port = 3000;
-
-app.use(loggerMiddleware);
-app.use(express.json());
-
 const corsOptions = {
   origin: config.frontendURL,
   credentials: true,
 };
 
+app.use(loggerMiddleware);
+app.use(express.json());
 app.use(cors(corsOptions));
 
 app.listen(port, () => {

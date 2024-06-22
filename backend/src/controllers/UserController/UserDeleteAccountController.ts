@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { verifyToken } from "../middlewares/verifyToken";
-import { AppDataSource } from "../db";
-import { User } from "../entity/User";
+import { verifyToken } from "../../middlewares/verifyToken";
+import { AppDataSource } from "../../db";
+import { User } from "../../entity/User";
 
 export const UserControllerDeleteUser = [
   verifyToken,
@@ -9,7 +9,9 @@ export const UserControllerDeleteUser = [
     const login = req.user?.login;
 
     if (!login) {
-      return res.status(403).json({ message: "Не удалось идентифицировать пользователя" });
+      return res
+        .status(403)
+        .json({ message: "Не удалось идентифицировать пользователя" });
     }
 
     try {
@@ -23,12 +25,14 @@ export const UserControllerDeleteUser = [
       await userRepository.remove(user);
 
       res.clearCookie("token", { httpOnly: true, maxAge: 0 });
-      return res
-        .status(204)
-        .json({ message: "Сессия завершена" });
+      return res.status(204).json({ message: "Сессия завершена" });
     } catch (error) {
       console.error("Ошибка при удалении пользователя:", error);
-      return res.status(500).json({ message: "Произошла ошибка сервера при удалении пользователя" });
+      return res
+        .status(500)
+        .json({
+          message: "Произошла ошибка сервера при удалении пользователя",
+        });
     }
-  }
+  },
 ];
