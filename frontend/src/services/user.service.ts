@@ -1,24 +1,22 @@
 import { IUser } from "@/types/auth.types";
 import { http } from "@/http-client";
+import { cleanString } from "@/utils";
 
 export const userService = {
-  async getUser() {
+  async getUser(): Promise<IUser | null> {
     const response = await http.get<IUser>(`/users/`);
-    return response.data;
+    return response?.data;
   },
 
-  async updateUser(userId: string, login: string, role: string, name: string, password: string) {
-    const response = await http.put(`/users/${ userId }`, {
-      login,
-      role,
-      name,
-      password
-    });
-    return response.data;
-  },
-
-  async deleteUser(userId: string) {
-    const response = await http.delete(`/users/${ userId }`);
-    return response.status;
+  async updateUser(newUser: IUser): Promise<IUser | null> {
+    newUser.username = cleanString(newUser.username);
+    newUser.email = cleanString(newUser.email);
+    newUser.lastName = cleanString(newUser.lastName);
+    newUser.firstName = cleanString(newUser.firstName);
+    newUser.lastName = cleanString(newUser.lastName);
+    newUser.achievements = cleanString(newUser.achievements);
+    newUser.healthIssues = cleanString(newUser.healthIssues);
+    const response = await http.put("/users/", newUser);
+    return response?.data;
   }
 };

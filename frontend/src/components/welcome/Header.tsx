@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Button, Nav, Navbar } from "react-bootstrap";
 import { LOGIN_PAGE, REGISTER_PAGE } from "@/constants/pages-url.constants";
 
 const Header = () => {

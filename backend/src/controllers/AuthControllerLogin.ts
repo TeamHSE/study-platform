@@ -34,7 +34,7 @@ export const AuthControllerLogin = [
       const privateKey = config.readPrivateKey();
 
       const token = jwt.sign({ login: user.email }, privateKey, {
-        expiresIn: "1h",
+        expiresIn: "1000h",
         algorithm: "RS256",
       });
 

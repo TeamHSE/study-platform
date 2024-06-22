@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import React from "react";
+import { Providers } from "@/app/providers";
 
 const inter = Montserrat({ subsets: [ "cyrillic", "latin" ] });
 
@@ -19,8 +20,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
     <body className={ inter.className }>
-    { children } { " " }
-    <Toaster theme={ "system" } position={ "top-left" } duration={ 1500 } />
+    <Providers>
+      { children } { " " }
+      <Toaster theme={ "system" } position={ "top-right" } duration={ 3000 } />
+    </Providers>
     </body>
     </html>
   );
