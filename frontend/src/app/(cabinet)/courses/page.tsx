@@ -85,7 +85,7 @@ const Courses: React.FC = () => {
             <Card>
               <Card.Body>
                 <div className="d-flex justify-content-between align-items-start">
-                  <Link href={ `${ COURSES_PAGE }/applied/${ index }` }>
+                  <Link href={ `${ COURSES_PAGE }/1` }>
                     <h5 className="card-title">
                       { course.category }
                     </h5>
