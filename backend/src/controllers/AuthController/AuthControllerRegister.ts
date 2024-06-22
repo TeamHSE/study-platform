@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { AppDataSource } from "../db";
-import { User } from "../entity/User";
+import { AppDataSource } from "../../db";
+import { User } from "../../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { userValidationRules } from "../middlewares/validation";
-import { config } from "../config/Config";
+import { userValidationRules } from "../../middlewares/validation";
+import { config } from "../../config/Config";
 
 export const AuthControllerRegister = [
   ...userValidationRules(),
@@ -62,10 +62,14 @@ export const AuthControllerRegister = [
         httpOnly: false,
       });
 
-      return res.status(200).json({ message: "Пользователь успешно зарегистрирован" });
+      return res
+        .status(200)
+        .json({ message: "Пользователь успешно зарегистрирован" });
     } catch (err) {
       console.error("Ошибка чтения приватного ключа:", err);
-      return res.status(500).json({ message: "Произошла ошибка при регистрации пользователя" });
+      return res
+        .status(500)
+        .json({ message: "Произошла ошибка при регистрации пользователя" });
     }
   },
 ];

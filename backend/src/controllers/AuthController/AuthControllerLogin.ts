@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
-import { AppDataSource } from "../db";
-import { User } from "../entity/User";
+import { AppDataSource } from "../../db";
+import { User } from "../../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { config } from "../config/Config";
+import { config } from "../../config/Config";
 
 export const AuthControllerLogin = [
   check("login").isEmail().withMessage("Неверный формат почты!"),
