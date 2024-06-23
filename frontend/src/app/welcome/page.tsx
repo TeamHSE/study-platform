@@ -3,7 +3,6 @@
 import React from "react";
 import HeroSection from "@/components/welcome/Hero";
 import FeaturesSection from "@/components/welcome/Features";
-import CallToActionSection from "@/components/welcome/CallToAction";
 import Footer from "@/components/welcome/Footer";
 import Header from "@/components/welcome/Header";
 import Authors from "@/components/welcome/Authors";
@@ -14,7 +13,6 @@ const LandingPage = () => {
       <Header />
       <HeroSection />
       <FeaturesSection />
-      <CallToActionSection />
       <Authors />
       <Footer />
     </div>
