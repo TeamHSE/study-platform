@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { validationResult, ValidationChain } from "express-validator";
-import { User } from "../entity/User";
-import { AppDataSource } from "../db";
-import { userValidationDescription } from "../middlewares/validation";
-import { verifyToken } from "../middlewares/verifyToken";
+import { User } from "../../entity/User";
+import { AppDataSource } from "../../db";
+import { userValidationDescription } from "../../middlewares/validation";
+import { verifyToken } from "../../middlewares/verifyToken";
 
 export const UserControllerUpdate: [
   (req: Request, res: Response, next: NextFunction) => void,

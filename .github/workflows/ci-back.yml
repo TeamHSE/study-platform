@@ -2,7 +2,7 @@ name: CI Backend
 
 on:
   push:
-    branches: [ "develop", "main", "feat/backend-ci" ]
+    branches: [ "develop", "main" ]
   pull_request:
     branches: [ "develop", "main" ]
 
