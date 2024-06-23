@@ -23,9 +23,13 @@ export class CoursesModule extends BaseEntity {
   @Column("text")
   description: string | undefined;
 
-  @ManyToOne(() => Course, (course) => course.modules)
+  @ManyToOne(() => Course, (course) => course.modules, {
+        onDelete: 'CASCADE',
+    })
   course: Course;
 
-  @OneToMany(() => CoursesStep, (course) => course.module)
+  @OneToMany(() => CoursesStep, (course) => course.module, {
+        cascade: true,
+    })
   steps: CoursesStep[];
 }

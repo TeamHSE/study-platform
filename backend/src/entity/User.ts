@@ -44,6 +44,8 @@ export class User {
   @Column({ type: "text", nullable: true })
   healthIssues: string;
 
-  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user)
+  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user, {
+        onDelete: 'CASCADE',
+    })
   viewers: CoursesViewer;
 }

@@ -23,9 +23,13 @@ export class Course extends BaseEntity {
   @Column({ default: false, type: "boolean" })
   isVisible: boolean;
 
-  @OneToMany(() => CoursesModule, (module) => module.course)
+  @OneToMany(() => CoursesModule, (module) => module.course, {
+        cascade: true,
+    })
   modules: CoursesModule[];
 
-  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user)
-  viewers: CoursesViewer;
+  @ManyToOne(() => CoursesViewer, (viewer) => viewer.user, {
+        onDelete: 'CASCADE',
+    })
+  viewers: CoursesViewer[];
 }

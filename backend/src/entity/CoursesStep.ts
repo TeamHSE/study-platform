@@ -31,6 +31,8 @@ export class CoursesStep extends BaseEntity {
   @Column({ default: 1, type: "integer" })
   ratingAward: number | undefined;
 
-  @ManyToOne(() => CoursesModule, (module) => module.steps)
+  @ManyToOne(() => CoursesModule, (module) => module.steps, {
+        onDelete: 'CASCADE',
+    })
   module: CoursesModule;
 }

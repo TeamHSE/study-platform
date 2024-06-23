@@ -19,9 +19,13 @@ export class CoursesViewer extends BaseEntity {
   @Column({ type: "uuid" })
   courseId: "uuid" | undefined;
 
-  @OneToMany(() => User, (user) => user.viewers)
+  @OneToMany(() => User, (user) => user.viewers, {
+        cascade: true,
+    })
   user: User[];
 
-  @OneToMany(() => Course, (course) => course.viewers)
+  @OneToMany(() => Course, (course) => course.viewers, {
+        cascade: true,
+    })
   course: Course[];
 }
