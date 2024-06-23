@@ -1,13 +1,21 @@
-import { Request, Response } from "express";
-import { validationResult } from "express-validator";
+import { Request, Response, NextFunction } from "express";
+import { validationResult, ValidationChain } from "express-validator";
 import { User } from "../entity/User";
 import { AppDataSource } from "../db";
 import { userValidationDescription } from "../middlewares/validation";
 import { verifyToken } from "../middlewares/verifyToken";
 
-export const UserControllerUpdate = [
+export const UserControllerUpdate: [
+  (req: Request, res: Response, next: NextFunction) => void,
+  ...ValidationChain[],
+  (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => Promise<Response<any> | void>,
+] = [
   verifyToken,
-  userValidationDescription(),
+  ...userValidationDescription(),
 
   async (req: Request, res: Response) => {
     try {
@@ -18,7 +26,9 @@ export const UserControllerUpdate = [
 
       const login = req.user?.login;
       if (!login) {
-        return res.status(403).json({ message: "Не удалось идентифицировать пользователя" });
+        return res
+          .status(403)
+          .json({ message: "Не удалось идентифицировать пользователя" });
       }
 
       const userRepository = AppDataSource.getRepository(User);
