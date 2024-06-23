@@ -31,5 +31,4 @@ export class CoursesViewer extends BaseEntity {
 
   @OneToMany(() => Course, (course) => course.viewers)
   course: Course[];
-
 }

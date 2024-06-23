@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-class Config {
+export class Config {
   dbHost: string;
   privateKeyPath: string;
   publicKeyPath: string;

@@ -1,23 +1,24 @@
 import { RootController } from "./controllers/RootController";
-import { HelloWorldController } from "./controllers/HelloWorldController";
-import { app } from "./server";
-import { UserController } from "./controllers/UserController";
-import { AuthControllerLogin } from "./controllers/AuthControllerLogin";
-import { AuthControllerRegister } from "./controllers/AuthControllerRegister";
-import { UserControllerGetUserInfo } from "./controllers/UserInfoController";
-import { UserControllerLogout } from "./controllers/AuthControllerLogout";
-import { UserControllerDeleteUser } from "./controllers/UserDeleteAccountController";
-import { UserControllerUpdate } from "./controllers/UserUpdateController";
+import { AuthControllerLogin } from "./controllers/AuthController/AuthControllerLogin";
+import { AuthControllerRegister } from "./controllers/AuthController/AuthControllerRegister";
+import { UserControllerGetUserInfo } from "./controllers/UserController/UserInfoController";
+import { UserControllerLogout } from "./controllers/AuthController/AuthControllerLogout";
+import { UserControllerDeleteUser } from "./controllers/UserController/UserDeleteAccountController";
+import { UserControllerUpdate } from "./controllers/UserController/UserUpdateController";
+import express from "express";
 
 export const registerControllers = () => {
-  app.get("/helloWorld", HelloWorldController);
-  app.get("/", RootController);
-  app.post("/api/auth/register", AuthControllerRegister);
-  app.post("/api/auth/login", AuthControllerLogin);
-  app.get("/user", UserController);
-  app.post("/user", UserController);
-  app.get("/api/users", UserControllerGetUserInfo);
-  app.post("/api/auth/logout", UserControllerLogout);
-  app.delete("/api/users",UserControllerDeleteUser);
-  app.put("/api/users",UserControllerUpdate);
+
+  const routes = express.Router();
+  routes.get('/', RootController);
+
+  routes.post("/api/auth/register", AuthControllerRegister);
+  routes.post("/api/auth/login", AuthControllerLogin);
+  routes.post("/api/auth/logout", UserControllerLogout);
+
+  routes.get("/api/users", UserControllerGetUserInfo);
+  routes.delete("/api/users", UserControllerDeleteUser);
+  routes.put("/api/users", UserControllerUpdate);
+
+  return routes;
 };
