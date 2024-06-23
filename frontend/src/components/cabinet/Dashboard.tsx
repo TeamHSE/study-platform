@@ -4,12 +4,14 @@ import React from "react";
 import { Container, Row, Col, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { COURSES_PAGE } from "@/constants/pages-url.constants";
+import Link from "next/link";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Dashboard = () => {
   const data = {
-    labels: [ "Courses Completed", "Total Students", "Total Creators" ],
+    labels: [ "Завершили курс", "Проходят сейчас", "Не выбрали ни один курс" ],
     datasets: [
       {
         data: [ 256894, 256894, 256894 ],
@@ -35,7 +37,6 @@ const Dashboard = () => {
             <Card.Body>
               <Card.Title>7498</Card.Title>
               <Card.Text>Количество курсов</Card.Text>
-              <Card.Text>📈 12%</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -44,7 +45,6 @@ const Dashboard = () => {
             <Card.Body>
               <Card.Title>1375</Card.Title>
               <Card.Text>Количество создателей</Card.Text>
-              <Card.Text>📈 6.5%</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -53,7 +53,6 @@ const Dashboard = () => {
             <Card.Body>
               <Card.Title>8360</Card.Title>
               <Card.Text>Количество учеников</Card.Text>
-              <Card.Text>📈 9%</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -85,22 +84,37 @@ const Dashboard = () => {
       </Row>
       <Row className="mt-4">
         <Col>
-          <h4>Популярные категории</h4>
+          <h4>Популярные курсы</h4>
         </Col>
       </Row>
       <Row>
-        { [ ...Array(7) ].map((_, index) => (
-          <Col md={ 4 } className="mb-4" key={ index }>
-            <Card>
-              <Card.Body>
-                <Card.Title>Название курса</Card.Title>
-                <Card.Text>$350</Card.Text>
-                <Card.Text>20/08/2024</Card.Text>
-                <Card.Text>Имя</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        )) }
+        <Col md={ 4 } className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title>
+                <a href={ `${ COURSES_PAGE }/1` } className={ "stretched-link" }>Утренняя зарядка</a>
+              </Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={ 4 } className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title>
+                <a href={ `${ COURSES_PAGE }/2` } className={ "stretched-link" }>Все тело за 1 час</a>
+              </Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={ 4 } className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title>
+                <a href={ `${ COURSES_PAGE }/3` } className={ "stretched-link" }>Растяжка перед сном</a>
+              </Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );
