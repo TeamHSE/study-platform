@@ -11,10 +11,12 @@ RUN apk add --no-cache openssl \
 
 WORKDIR /usr/src/app
 
-RUN --mount=type=bind,source=backend/package.json,target=package.json \
-    --mount=type=bind,source=backend/pnpm-lock.yaml,target=pnpm-lock.yaml \
-    --mount=type=cache,target=/root/.local/share/pnpm/store \
-    npm i --frozen-lockfile --force
+# Copy package.json and pnpm-lock.yaml
+COPY backend/package.json ./package.json
+COPY backend/pnpm-lock.yaml ./pnpm-lock.yaml
+
+# Install dependencies
+RUN npm i --frozen-lockfile --force
 
 # Generate RSA keys in src/config
 RUN mkdir -p src/config \
@@ -26,7 +28,7 @@ RUN mkdir -p src/config \
 USER node
 
 # Copy the rest of the source files into the image.
-COPY ./backend/ .
+COPY backend /usr/src/app
 
 # Expose the port that the application listens on.
 EXPOSE 80
