@@ -1,13 +1,21 @@
-import { Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { User } from "../../entity/User";
-import { AppDataSource } from "../../db";
-import { userValidationDescription } from "../../middlewares/validation";
-import { verifyToken } from "../../middlewares/verifyToken";
+import { Request, Response, NextFunction } from "express";
+import { validationResult, ValidationChain } from "express-validator";
+import { User } from "../entity/User";
+import { AppDataSource } from "../db";
+import { userValidationDescription } from "../middlewares/validation";
+import { verifyToken } from "../middlewares/verifyToken";
 
-export const UserControllerUpdate = [
+export const UserControllerUpdate: [
+  (req: Request, res: Response, next: NextFunction) => void,
+  ...ValidationChain[],
+  (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => Promise<Response<any> | void>,
+] = [
   verifyToken,
-  userValidationDescription(),
+  ...userValidationDescription(),
 
   async (req: Request, res: Response) => {
     try {

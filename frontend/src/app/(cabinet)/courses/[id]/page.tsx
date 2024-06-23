@@ -28,9 +28,7 @@ const CoursePage: React.FC<CoursePageProps> = ({ course }) => {
   );
 };
 
-// Fetch data at build time
 export async function generateStaticParams() {
-  // Replace this with your data fetching logic to get all course IDs
   const courses = [
     { id: "1" },
     { id: "2" },
@@ -43,23 +41,21 @@ export async function generateStaticParams() {
 }
 
 async function getData(id: string) {
-  // Replace this with your data fetching logic
   return {
     id,
-    name: `Course ${ id }`,
-    description: `This is the description for Course ${ id }.`,
+    name: `Курс ${ id }`,
+    description: `Здесь должно быть описание курса ${ id }.`,
     modules: [
       {
         id: "module1",
-        title: "Module 1",
-        content: "Content for module 1"
+        title: "Модуль 1",
+        content: "Содержимое модуля: текст с описанием тренировочного плана модуля 1"
       },
       {
         id: "module2",
-        title: "Module 2",
-        content: "Content for module 2"
+        title: "Модуль 2",
+        content: "Содержимое модуля: текст с описанием тренировочного плана модуля 2"
       }
-      // Add more modules as needed
     ]
   };
 }
