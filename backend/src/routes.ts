@@ -6,6 +6,7 @@ import { UserControllerLogout } from "./controllers/AuthController/AuthControlle
 import { UserControllerDeleteUser } from "./controllers/UserController/UserDeleteAccountController";
 import { UserControllerUpdate } from "./controllers/UserController/UserUpdateController";
 import express from "express";
+import {createCourse, deleteCourse} from "./controllers/CoursesController";
 
 export const registerControllers = () => {
 
@@ -19,6 +20,9 @@ export const registerControllers = () => {
   routes.get("/api/users", UserControllerGetUserInfo);
   routes.delete("/api/users", UserControllerDeleteUser);
   routes.put("/api/users", UserControllerUpdate);
+
+  routes.post("/api/courses", createCourse);
+  routes.delete("/api/courses/:courseId", deleteCourse);
 
   return routes;
 };
