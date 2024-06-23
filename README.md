@@ -40,3 +40,10 @@ docker-compose up --build
 
 - [Frontend](https://github.com/TeamHSE/train-platform/blob/develop/frontend/README.md)
 - [Backend](https://github.com/TeamHSE/train-platform/blob/develop/backend/README.md)
+
+### Развернутый веб-сайт
+
+Веб-сайт также развернут на веб-хостинге Vercel *(на данный момент только фронтенд, пожтому особо не работает)*
+
+- Превью-версия (dev) находится на странице https://train-platform-git-develop-hse-students.vercel.app, развертывается при пуше в ветку development с помощью CD-механизма
+- Прод-версия находится на странице https://train-platform.vercel.app
