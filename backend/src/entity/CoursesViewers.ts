@@ -5,7 +5,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { UsersRole } from "./UsersRoles";
 import { Course } from "./Course";
 import { User } from "./User";
 
@@ -19,12 +18,6 @@ export class CoursesViewer extends BaseEntity {
 
   @Column({ type: "uuid" })
   courseId: "uuid" | undefined;
-
-  @Column({ type: "uuid" })
-  roleId: "uuid" | undefined;
-
-  @OneToMany(() => UsersRole, (role) => role.viewer)
-  roles: UsersRole[];
 
   @OneToMany(() => User, (user) => user.viewers)
   user: User[];

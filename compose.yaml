@@ -7,6 +7,10 @@ services:
       - 3000:3000
     environment:
       DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASS: postgres
+      DB_NAME: courses
       PRIVATE_KEY_PATH: src/config/private.pem
       PUBLIC_KEY_PATH: src/config/public.pem
       FRONTEND_URL: "http://localhost:3001"

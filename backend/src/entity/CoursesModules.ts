@@ -23,12 +23,6 @@ export class CoursesModule extends BaseEntity {
   @Column("text")
   description: string | undefined;
 
-  @Column({ default: false, type: "boolean" })
-  isVisible: boolean | undefined;
-
-  @Column({ type: "integer" })
-  moduleNumber: number | undefined;
-
   @ManyToOne(() => Course, (course) => course.modules)
   course: Course;
 
