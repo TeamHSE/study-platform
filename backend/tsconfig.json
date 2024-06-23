@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["es2021"],
+    "lib": [
+      "es2021"
+    ],
     "target": "es2021",
     "module": "es2022",
     "moduleResolution": "node",
@@ -12,5 +14,16 @@
     "sourceMap": true,
     "strict": false
   },
-  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js", "**/*.test.ts", "node_modules", "./dist/"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "./coverage",
+    "./dist",
+    "__tests__",
+    "jest.config.js",
+    "**/*.test.ts",
+    "node_modules",
+    "./dist/"
+  ]
 }
