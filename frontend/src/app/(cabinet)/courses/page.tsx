@@ -20,23 +20,21 @@ const newCourses = [
     date: "20/08/2024",
     category: "Разминки"
   }
-  // Add more new courses as needed
 ];
 
 const initialAppliedCourses = [
   {
-    name: "Advanced React",
+    name: "Утренняя зарядка",
     price: "$500",
     date: "01/09/2024",
-    category: "Programming"
+    category: "Разминки"
   },
   {
-    name: "Data Science Bootcamp",
+    name: "Верхняя часть тела",
     price: "$800",
     date: "15/09/2024",
-    category: "Data Science"
+    category: "Функциональная"
   }
-  // Add more applied courses as needed
 ];
 
 const Courses: React.FC = () => {
