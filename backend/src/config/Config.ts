@@ -18,7 +18,7 @@ export class Config {
     this.dbName = process.env.DB_NAME || "";
     this.privateKeyPath = process.env.PRIVATE_KEY_PATH || "";
     this.publicKeyPath = process.env.PUBLIC_KEY_PATH || "";
-    this.frontendURL = process.env.FRONTEND_URL || "";
+    this.frontendURL = "https://train-platform.vercel.app";
   }
 
   readPrivateKey(): string {
