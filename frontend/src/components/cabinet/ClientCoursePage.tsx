@@ -1,7 +1,7 @@
-"use client"; // Ensure this is a client component
+"use client";
 
 import React, { useState } from "react";
-import { Button, Row, Col, Card, ListGroup } from "react-bootstrap"; // Import Bootstrap components
+import { Button, Row, Col, Card, ListGroup } from "react-bootstrap";
 
 interface Module {
   id: string;
@@ -57,7 +57,7 @@ const ClientCoursePage: React.FC<ClientCoursePageProps> = ({ course }) => {
               ) }
             </Col>
             <Col md={ 4 }>
-              <h2>Modules</h2>
+              <h2>Модули</h2>
               <ListGroup>
                 { course.modules.map((module) => (
                   <ListGroup.Item
