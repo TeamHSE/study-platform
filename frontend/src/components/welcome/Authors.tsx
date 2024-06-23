@@ -4,7 +4,7 @@ const AuthorsSection = () => {
   return (
     <>
       <div className="text-center mb-5">
-        <h2 className="py-5">Авторы</h2>
+        <h2 className="py-5 text-white">Авторы</h2>
       </div>
       <div className="container pb-5">
         <div className="row pb-5">
