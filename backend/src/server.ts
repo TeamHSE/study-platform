@@ -1,9 +1,9 @@
-import express from "express";
+import express, {Application} from "express";
 import { loggerMiddleware } from "./middlewares/logger";
 import { config } from "../src/config/Config";
 import cors from "cors";
 
-export const app = express();
+export const app:Application = express();
 const port = 3000;
 const corsOptions = {
   origin: config.frontendURL,

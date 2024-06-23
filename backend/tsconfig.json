@@ -5,9 +5,12 @@
     "module": "es2022",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "outDir": "../build",
+    "outDir": "./dist",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
-  }
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true
+  },
+  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js", "**/*.test.ts"]
 }
