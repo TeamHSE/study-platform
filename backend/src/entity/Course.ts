@@ -7,7 +7,6 @@ import {
   ManyToOne,
 } from "typeorm";
 import { CoursesModule } from "./CoursesModules";
-import { CoursesStep } from "./CoursesStep";
 import { CoursesViewer } from "./CoursesViewers";
 
 @Entity("courses")

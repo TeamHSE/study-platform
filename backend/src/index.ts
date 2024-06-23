@@ -1,6 +1,6 @@
 import "./config/Config";
 import { AppDataSource } from "./db";
-import { registerControllers } from "./routes";
+import {app} from "./server";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -10,4 +10,6 @@ AppDataSource.initialize()
   })
   .catch((error) => console.log(error));
 
-registerControllers();
+app.listen(3000, () => {
+  console.log(`Backend node app listening on port ${3000}`);
+});
