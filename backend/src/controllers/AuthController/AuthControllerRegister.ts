@@ -60,6 +60,7 @@ export const AuthControllerRegister = [
 
       res.cookie("token", token, {
         httpOnly: false,
+        sameSite: "none"
       });
 
       return res

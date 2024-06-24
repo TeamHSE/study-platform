@@ -1,6 +1,7 @@
 import "./config/Config";
 import { AppDataSource } from "./db";
 import {app} from "./server";
+import { config } from "typescript-eslint";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -10,6 +11,6 @@ AppDataSource.initialize()
   })
   .catch((error) => console.log(error));
 
-app.listen(3000, () => {
-  console.log(`Backend node app listening on port ${3000}`);
+app.listen(8080, () => {
+  console.log(`Backend node app listening on port ${8080}`);
 });
